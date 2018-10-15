@@ -1,0 +1,125 @@
+@import "../../App.scss";
+
+.site{
+
+}
+.wrapper{
+    position: relative;
+    padding-top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    max-width: 650px;
+    align-items: center;
+
+
+    :global {
+        .login__footer {
+            margin-top: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h2 {
+                margin-right: 20px;
+            }
+
+            button {
+                flex: 1 1 50%;
+                background: linear-gradient(to right, #d14637, #e74c3c, #d14637);
+                box-shadow: 2px 2px 8px 0 rgba($color-main, .6),
+                    0px -2px 3px 0 rgba($color-main, .2);
+
+                &:hover,
+                &:focus {
+                    background: linear-gradient(to right, #f17d70, #e96658, #f17d70);
+                    box-shadow: 0;
+                }
+            }
+        }
+        .container--register {
+            left: 100%;
+            transform: translateX(-100%);
+            background-image: url("../../img/goal.svg");
+            background-position: -50px 110%;
+        }
+
+        .button--submit {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+    }
+
+}
+.panel__container{
+    position: absolute;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    height: 450px;
+    width: 350px;
+    z-index: 300;
+    background-image: url("../../img/report.svg");
+    background-repeat: no-repeat;
+    background-size: 150px;
+    background-position: 110% 110%;
+    left: 0;
+    transition: .4s ease-in-out;
+    overflow: hidden;
+
+    h1,
+    form {
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    h1 {
+        margin-bottom: 5px;
+    }
+
+}
+
+.info__wrapper{
+    position: absolute;
+    background-color: rgba(#fff, 0.3);
+    width: 100%;
+    height: 390px;
+    border-radius: 15px;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    //font-family: "Oswald";
+    font-weight: 600;
+
+    .info{
+        width: 45%;
+        color: $color-text-light;
+        padding: 20px;
+        font-size: remy($size-text-regular);
+        display: flex;
+        align-content: center;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        h2{
+            font-size: remy($size-header-small);
+            margin: 10px 0;
+        }
+
+        li{
+            margin: 5px;
+        }
+
+        img{
+            height: 50%;
+
+            object-fit: contain;
+            background-color: rgba(#fff, 1);
+            border: 4px solid rgba($color-sec, 1);
+            padding: 8px;
+            border-radius: 50%;
+        }
+    }
+}

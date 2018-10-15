@@ -1,0 +1,21 @@
+@import "../../App.scss";
+
+.def{
+    border: 0;
+    background: linear-gradient(to right, #4c0cc4, #4a00e0, #4c0cc4);
+    font-size: remy($size-button);
+    color: $color-text-light;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    transition: .2s ease-out;
+    box-shadow: 0;
+
+    &:hover,
+    &:focus{
+        background: linear-gradient(to right, #7036e4, #6429d1, #7036e4);
+        box-shadow: 2px 2px 8px 0 rgba($color-main, .6),
+        0px -2px 3px 0 rgba($color-main, .2);
+    }
+}

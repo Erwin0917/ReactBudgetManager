@@ -1,0 +1,64 @@
+@import "../../App.scss";
+
+.wrapper{
+    position: relative;
+    z-index: 100;
+
+    label{
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: remy($size-label);
+        left: 10px;
+        color: $color-disabled;
+        transition: .3s ease-out;
+        z-index: 150;
+        padding: 0 2px;
+    }
+
+    .Input{
+        width: 100%;
+        z-index: 200;
+        position: relative;
+        background-color: transparent;
+        &:active,
+        &:focus {
+            border-color: $color-main;
+
+            &+label {
+                top: 0;
+                color: $color-main;
+                font-size: remy($size-label--active);
+                background-color: white;
+                z-index: 200;
+            }
+        }
+
+        &:global {
+            &.is-active {
+                border-color: $color-main;
+
+                &+label {
+                    top: 0;
+                    color: $color-main;
+                    font-size: remy($size-label--active);
+                    background-color: white;
+                    z-index: 200;
+                }
+            }
+        }
+    }
+}
+.Input{
+    border: 1px solid $color-disabled;
+    border-radius: 8px;
+    padding: 7px 8px;
+    outline: none;
+    transition: .3s ease-out;
+    color:$color-main;
+
+    &:active, &:focus{
+        border-color:  $color-main;
+    }
+
+}

@@ -1,0 +1,24 @@
+@import "../../../App.scss";
+
+
+.wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+
+    .input__amount {
+        max-width: 60px;
+    }
+    input{
+        margin: 10px;
+    }
+
+}
+.expenses__wrapper,
+.earnings__wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+

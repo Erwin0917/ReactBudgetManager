@@ -1,0 +1,28 @@
+@import "../../../App.scss";
+
+.wrapper{
+    position: relative;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    transition: .4s ease-in-out;
+
+    p{
+        font-size: remy($size-text--small);
+        width: 100%;
+    }
+
+    :global {
+        .login-input {
+            margin: 15px 0;
+        }
+
+        .login__footer{
+            margin-top: 30% !important;
+        }
+    }
+}

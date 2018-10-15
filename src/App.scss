@@ -1,0 +1,76 @@
+/* --Var-- */
+/* Colors */
+$color-main: #0f0c29;
+$color-sec: #e74c3c;
+$color-disabled: #bdc3c7;
+$color-text-light: #fff;
+$color-text-dark: #1a2027;
+$color-placeholder:#9ca0a3;
+$color-hover-light:#f7f7f7;
+
+
+/* sizes */
+$size-label--active: 10;
+$size-label: 12;
+
+$size-button: 16;
+
+$size-header-small: 19;
+
+$size-text--small: 12;
+$size-text-regular: 14;
+
+/* --Mixins-- */
+
+
+/* --Func-- */
+@function remy($size) {
+  $remSize: $size / 16;
+  @return #{$remSize}rem;
+}
+
+.App {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.2;
+  color: $color-text-dark;
+  background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
+  font-size: remy($size-text-regular);
+}
+*{
+  box-sizing: border-box;
+}
+input,button,texarea{
+  line-height: 1.2;
+
+  &::placeholder{
+    color: $color-placeholder;
+  }
+}
+
+h1,h2,h2,h4, .header{
+  font-family: 'Oswald', sans-serif;
+}
+
+
+.content__wrapper{
+  background-color: #fff;
+  width: calc(100% - 300px );
+  min-height: 100vh;
+  position: relative;
+  left: 100%;
+  transform: translateX(-100%);
+}
+
+.content__header {
+  border-bottom: 1px solid $color-main;
+  padding: 20px;
+  display: flex;
+
+
+  &-title{
+    margin: 0;
+    display: inline-block;
+  }
+}
