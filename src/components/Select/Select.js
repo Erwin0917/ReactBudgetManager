@@ -41,7 +41,7 @@ class Select extends Component {
             }else{
                 list.classList.remove(classes.isActive);
             }
-
+            return false;
 
         })
     }
@@ -49,7 +49,7 @@ class Select extends Component {
     openListHandle = (e) =>{
         e.preventDefault();
         let target;
-        if (e.currentTarget.classList.contains(classes.container)){
+        if (e.target.classList.contains(classes.output)) {
             target = e.currentTarget;
             this.closeAllLists(target);
             target.classList.toggle(classes.isActive);
@@ -64,8 +64,18 @@ class Select extends Component {
 
     }
     searchInputHandle = e =>{
-        console.log(e.target.value);
+        const searchValue = e.target.value;
+        const list = [...this.wrapper.current.querySelectorAll(`.${classes.select__item}:not(.add__new)`)];
 
+        list.map( item =>{
+            if (item.textContent.toLowerCase().includes(searchValue.toLowerCase())) {
+                item.style.display = "block"
+            }else{
+                item.style.display = "none";
+            }
+
+            return false;
+        })
 
     }
     itemClickHandler = e =>{
@@ -90,13 +100,31 @@ class Select extends Component {
     setOutputValue = target =>{
         const value = target.textContent;
 
-        const valueList = [value]
+        let valueList = this.state.currentElements;
+
+        if(this.props.multiselect){
+            if(valueList.indexOf(value) !== -1){
+                valueList.splice(valueList.indexOf(value), 1)
+            }else{
+                valueList.push(value)
+            }
+
+        }else{
+            if(valueList.indexOf(value) !== -1){
+                valueList = [];
+            }else{
+                valueList.splice(0, valueList.length);
+                valueList.push(value);
+            }
+
+        }
 
         this.setState({
             ...this.state,
             currentElements: valueList
         })
 
+        this.props.onChange(this.state.currentElements);
     }
 
     render(){
@@ -105,17 +133,16 @@ class Select extends Component {
             let list;
 
             if(data && data.length > 0){
-                list = data.map( item =>
-                     (<li key={item} className={classes.select__item} onClick={e=>this.itemClickHandler(e)} >{item}</li>)
+                list = data.map( (item, i) =>
+                     (<li key={i} className={classes.select__item} onClick={e=>this.itemClickHandler(e)} >{item}</li>)
 
                 )
             }
             return list;
         }
 
-        const outputElements = () =>{
+        const createOutputElements = () =>{
             const wrapper = this.wrapper.current ? this.wrapper.current.querySelector(`.${classes.container}`) : null;
-            console.log(this.wrapper.current);
             if(this.state.currentElements.length > 0 ){
                 if (wrapper) wrapper.classList.add(classes.isNotEmpty);
                 return this.state.currentElements.map( (item, i) => (<span key={i}>{item}</span>))
@@ -130,7 +157,7 @@ class Select extends Component {
             <div className={classes.wrapper} ref={this.wrapper}>
                 <div className={[classes.container, "select__container"].join(" ")} onClick={ e => this.openListHandle(e)}>
                     <div className={classes.output}>
-                        {outputElements()}
+                        {createOutputElements()}
                     </div>
                     <div className={classes.list__wrapper}>
                         {this.props.autocomplete?
@@ -138,9 +165,6 @@ class Select extends Component {
                          null}
 
                         <ul>
-                            {this.props.addNew ?
-                            <li className={[classes.select__item, "add__new"].join(" ")}><span className="ico ico-plus"></span>Dodaj nowy</li> :
-                            null}
                             {createList(this.props.data)}
                         </ul>
                     </div>

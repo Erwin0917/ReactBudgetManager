@@ -18,7 +18,24 @@
 .earnings__wrapper {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+    padding: 10px 0;
+
+    input{
+        text-align: center;
+        font-weight: 600;
+    }
+}
+
+.expenses__wrapper{
+    background: linear-gradient(to bottom, #ffffff, #f0d9de);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.earnings__wrapper{
+    background: linear-gradient(to top, #ffffff, #d5ece4);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 

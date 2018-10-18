@@ -29,7 +29,7 @@
 
     &.isNotEmpty{
         border: 1px solid transparent;
-        background-color: rgba($color-disabled, .15);
+        background-color: rgba(#fff, .5);
     }
 
 
@@ -41,12 +41,16 @@
     transition: .3s ease-out;
     color: $color-placeholder;
     cursor: pointer;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
     span{
         //border: 1px solid $color-disabled;
         border-radius: 9px;
-        padding: 1px 5px;
-        background-color: $color-sec;
+        padding: 2px 8px;
+        margin: 2px;
+        background-color: $color-thr;
         color: $color-text-light;
         font-weight: 600;
         text-transform: capitalize;

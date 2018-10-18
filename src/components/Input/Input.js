@@ -21,8 +21,10 @@ function Input(props){
                 type={props.type}
                 placeholder={props.placeholder}
                 className={[classes.Input, props.inputClass].join(" ")}
-                onBlur={ e => handleChange(e)}
-                onChange={e => props.onChange(e)}
+                onBlur = { e =>  handleChange(e) }
+                onChange = {
+                    e => props.onChange ?  props.onChange(e) : null
+                }
             />
             <label htmlFor={props.id}>{props.labelText}</label>
         </div>) :
@@ -30,8 +32,10 @@ function Input(props){
             type={props.type}
             placeholder={props.placeholder}
             className={[classes.Input, props.inputClass].join(" ")}
-            onBlur={ e => handleChange(e)}
-            onChange={e => props.onChange(e)}
+            onBlur = {e => handleChange(e)}
+            onChange = {
+                e => props.onChange ? props.onChange(e) : null
+            }
 
         />)
 
