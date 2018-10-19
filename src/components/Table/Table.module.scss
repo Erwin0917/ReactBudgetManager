@@ -1,0 +1,104 @@
+@import "../../styleConfig.scss";
+
+.wrapper{
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgba( $color-main,  .15);
+    border: 1px solid rgba( $color-main,  .15);
+
+    overflow: auto;
+
+    &__half{
+        width: 48%;
+    }
+    &__small{
+        width: 48%;
+        max-width: 450px;
+    }
+
+    input{
+        border: 0;
+        border-bottom: 1px solid transparent;
+        margin: 0 10px;
+        min-width: 45px;
+        max-width: 70px;
+        background-color: rgba($color-thr, .05);
+        padding: 2px 5px;
+        font-weight: 600;
+        outline: none;
+
+        &:focus, &:active{
+            border-bottom: 1px solid $color-thr;
+        }
+    }
+    label{
+        cursor: pointer;
+    }
+}
+
+.header{
+    padding: 20px;
+    background-color: rgba($color-main, .1);
+    display: flex;
+    justify-content: space-between;
+}
+
+.title{
+    font-size: remy($size-table-header);
+    margin-right: 20px;
+}
+.content__wrapper{
+    max-height: 600px;
+    overflow-y: auto;
+}
+.item{
+    border-bottom: 1px solid rgba( $color-main,  .15);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background-color: rgba( $color-main,  .05);
+
+
+    &:first-child{
+        padding-top: 20px;
+    }
+
+
+
+}
+
+.item__title{
+    width: 30%;
+    min-width: 150px;
+    text-align: left;
+}
+
+.tags__wrapper{
+    width: 100%;
+
+    .item{
+        padding-left: 40px;
+        border-bottom: 0;
+        background-color: rgba(#fff, .75);
+        &:first-child{
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        &:last-child{
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        &:hover{
+            background-color: rgba( $color-main,  .03);
+        }
+
+    }
+}
+
+.footer{
+    button{
+        width: 100%;
+    }
+}

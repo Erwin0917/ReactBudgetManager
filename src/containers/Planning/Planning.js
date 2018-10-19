@@ -1,5 +1,10 @@
 import React,{ Component  } from "react";
 
+import classes from "./Planning.module.scss"
+
+import IncomesPlan from "./IncomesPlan/IncomesPlan";
+import ExpensesPlan from "./ExpensesPlan/ExpensesPlan";
+
 class Planning extends Component {
 
     render(){
@@ -7,13 +12,16 @@ class Planning extends Component {
             <div className=''>
                 <div className="content__header">
                     <h1 className="content__header-title">Planowanie</h1>
+                    <h2 className="content__header-subTitle">Zaplanuj swoje przychody i wydatki. Kontroluj przepływ pieniędzy dzięki porównaniu planu do rzeczywistych wyników.</h2>
                 </div>
-                <div>
-                    Planowanie zarobków w tym miesiącu<br/>
-                    Planowanie wydatków dla kategorii<br/>
+                <div className="content__container">
+                    <div className={classes.table__container}>
+                        <ExpensesPlan/>
+                        <IncomesPlan/>
+                    </div>
                     Symulator oszczędności/Planowanie oszczędności<br/>
                 </div>
-     </div>
+            </div>
         )
     }
 

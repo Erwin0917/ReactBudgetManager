@@ -26,7 +26,7 @@ class FastAdd extends Component {
 
 	fetchData = () => {
 		const userId = firebase.auth().currentUser.uid;
-		const ref = firebase.database().ref(`users/${userId}`);
+		const ref = database.ref(`users/${userId}`);
 
 		let snap;
         let tags = [];
@@ -44,7 +44,8 @@ class FastAdd extends Component {
                         item.sub.map( tag => {
                             tags.push(tag)
                         })
-                    }
+					}
+					/* FIXME: zmienic snapAllIncomes na snap AllIncomesCats */
                     for (let item of snap.allIncomes) {
                         incomeCats.push(item)
                     }
@@ -89,8 +90,7 @@ class FastAdd extends Component {
         }
 
 
-		firebase
-			.database()
+		database
 			.ref(`users/${userId}/${type}`)
 			.push(data, function(error) {
 				if (error) console.log(error);
@@ -268,7 +268,7 @@ const data2 = {
 					]
 				}
 			],
-			allIncomes: [
+			allIncomesCat: [
 				'wynagrodzenie',
 				'premia',
 				'odsetki bankowe',
