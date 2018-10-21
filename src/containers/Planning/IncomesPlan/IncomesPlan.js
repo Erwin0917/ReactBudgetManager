@@ -9,7 +9,7 @@ const database = firebase.database();
 class IncomesPlan extends Component{
 
     state = {
-        data: null
+        combinedData: null
     }
 
     componentDidMount() {
@@ -19,16 +19,13 @@ class IncomesPlan extends Component{
 
     fetchData = () =>{
         const userId = firebase.auth().currentUser.uid;
-        const ref = database.ref(`users/${userId}/allIncomes`);
+        const fetchedData = database.ref(`users/${userId}`);
 
-        ref.on(
+        fetchedData.on(
 			'value',
 			snapshot => {
 				const snap = snapshot.val();
-                this.setState({
-                    ...this.state,
-                    data: snap
-                });
+                this.combineData( snap.allIncomes, snap.planned.incomes)
 			},
 			error =>{
 				console.log('Error: ' + error.code);
@@ -36,16 +33,38 @@ class IncomesPlan extends Component{
         );
     }
 
-    savePlan = data =>{
-        console.log(data);
+    combineData = (all, planned) =>{
+
+        let combineData = all.map( cat =>{
+
+                planned.map( plannedItem =>{
+                    const index = cat.indexOf(plannedItem[0]);
+
+                    if(index !== -1){
+                        cat = [plannedItem]
+                    }
+                })
+
+            return cat;
+        })
+
+        this.setState({
+            ...this.state,
+            combinedData: combineData
+        })
     }
+
+    /* savePlan = data =>{
+        const userId = firebase.auth().currentUser.uid;
+        database.ref(`users/${userId}/planned/incomes/`).set(data);
+    } */
 
 
     render(){
         return (
            <Table
                tableTitle="Planowane przychody"
-               data={this.state.data}
+               data={this.state.combinedData}
                onSave={this.savePlan}
            />
         )
