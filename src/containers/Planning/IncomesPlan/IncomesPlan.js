@@ -36,7 +36,7 @@ class IncomesPlan extends Component{
     combineData = (all, planned) =>{
 
         let combineData = all.map( cat =>{
-
+            if(planned){
                 planned.map( plannedItem =>{
                     const index = cat.indexOf(plannedItem[0]);
 
@@ -44,6 +44,7 @@ class IncomesPlan extends Component{
                         cat = [plannedItem]
                     }
                 })
+            }
 
             return cat;
         })
@@ -54,10 +55,20 @@ class IncomesPlan extends Component{
         })
     }
 
-    /* savePlan = data =>{
+    savePlan = data =>{
         const userId = firebase.auth().currentUser.uid;
-        database.ref(`users/${userId}/planned/incomes/`).set(data);
-    } */
+
+        let newData= [];
+        data.map( (key, i) =>{
+            console.log(key);
+            console.log(Object.keys(key)[0]);
+            if(key[Object.keys(key)[0]]){
+                newData.push([Object.keys(key)[0], key[Object.keys(key)[0]]])
+            }
+        })
+        console.log(newData);
+        database.ref(`users/${userId}/planned/incomes/`).set(newData);
+    }
 
 
     render(){

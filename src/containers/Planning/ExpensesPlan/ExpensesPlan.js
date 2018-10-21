@@ -37,10 +37,19 @@ class ExpensesPlan extends Component{
     }
 
     savePlan = data =>{
-        /* const userId = firebase.auth().currentUser.uid;
-        database.ref(`users/${userId}/planned/expenses/`).set(data); */
+        const userId = firebase.auth().currentUser.uid;
 
-        console.log(data);
+
+        let newData= [];
+        Object.keys(data).map( (key, i) =>{
+            data[key].map( tag =>{
+                if(tag[1]){
+                    newData.push(tag)
+                }
+            })
+
+        })
+        database.ref(`users/${userId}/planned/expenses/`).set(newData);
 
     }
 
