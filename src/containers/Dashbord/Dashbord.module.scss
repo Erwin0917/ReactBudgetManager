@@ -1,0 +1,54 @@
+@import "../../styleConfig.scss";
+
+.module__wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+
+}
+
+.plan__wrapper, .realization__wrapper{
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.section__title__wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.section__title{
+    font-size: remy($size-header-section);
+    padding: 8px 0;
+    background-color: rgba($color-placeholder, .15);
+    width: 500px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+}
+.section__item{
+    display: flex;
+    width: 250px;
+    padding: 10px;
+    padding-top: 15px;
+    margin: 5px 0;
+    margin-top: 0;
+    font-weight: 600;
+    border-left: 1px solid rgba($color-placeholder, .15);
+    border-bottom: 1px solid rgba($color-placeholder, .15);
+    border-bottom-left-radius: 8px;
+
+    &:last-child{
+        border-right: 1px solid rgba($color-placeholder, .15);
+        border-bottom: 1px solid rgba($color-placeholder, .15);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 8px;
+    }
+}
+
+.section__value{
+    margin-left: 10px;
+}

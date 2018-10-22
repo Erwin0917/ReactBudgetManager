@@ -89,9 +89,12 @@ class Table extends Component {
                 tagInputsInside.map( tagInput =>{
 
                     tagSum = tagInput.value ? tagSum + parseInt(tagInput.value) : tagSum;
+
+                    return tagInput;
                 })
                 input.value = tagSum;
 
+                return input;
             })
 
 
@@ -135,6 +138,7 @@ class Table extends Component {
                     if(currentTag){
                         tagArr[itemName].push([currentTag, val]);
                     }
+                    return tag;
                 })
                 listType = "tags"
 
@@ -151,6 +155,7 @@ class Table extends Component {
                 inputsArr.push({[curCatName]: curCatVal});
                 listType = "category";
             }
+            return item;
 
         })
 

@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 
 import firebase from '../../../firebase/config';
-import * as _ from "lodash";
 
 import Table from "../../../components/Table/Table";
 
@@ -46,7 +45,9 @@ class ExpensesPlan extends Component{
                 if(tag[1]){
                     newData.push(tag)
                 }
+                return tag;
             })
+            return key;
 
         })
         database.ref(`users/${userId}/planned/expenses/`).set(newData);
@@ -63,6 +64,7 @@ class ExpensesPlan extends Component{
                     if(index !== -1){
                         cat.sub[index] = [plannedItem]
                     }
+                    return plannedItem;
                 })
 
             return cat;

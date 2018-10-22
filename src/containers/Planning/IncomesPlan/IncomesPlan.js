@@ -43,6 +43,8 @@ class IncomesPlan extends Component{
                     if(index !== -1){
                         cat = [plannedItem]
                     }
+
+                    return plannedItem;
                 })
             }
 
@@ -65,8 +67,9 @@ class IncomesPlan extends Component{
             if(key[Object.keys(key)[0]]){
                 newData.push([Object.keys(key)[0], key[Object.keys(key)[0]]])
             }
+
+            return key;
         })
-        console.log(newData);
         database.ref(`users/${userId}/planned/incomes/`).set(newData);
     }
 

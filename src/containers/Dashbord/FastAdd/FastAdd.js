@@ -16,9 +16,7 @@ class FastAdd extends Component {
         tegs: [],
         hierarchy: null
 	};
-	constructor(props) {
-		super(props);
-	}
+
 
 	componentDidMount() {
 		this.fetchData();
@@ -42,7 +40,8 @@ class FastAdd extends Component {
 						cats.push(item.cat)
 
                         item.sub.map( tag => {
-                            tags.push(tag)
+							tags.push(tag)
+							return tag;
                         })
 					}
 					/* FIXME: zmienic snapAllIncomes na snap AllIncomesCats */
