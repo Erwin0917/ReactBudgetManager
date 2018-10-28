@@ -1,0 +1,39 @@
+@import "../../styleConfig.scss";
+
+.wrapper{
+    position: relative;
+    display: flex;
+    width: 100%;
+
+}
+
+.bars__wrapper{
+    position: relative;
+    background: rgba($color-main, .3);
+
+    &__horizontal{
+        width: 100%;
+        .bar__wrapper{
+            width: 100%;
+        }
+        .bar{
+            height: 40px;
+            width: 0;
+        }
+    }
+    &__vertical{
+        height: 100%;
+        .bar__wrapper{
+            height: 100%;
+        }
+        .bar{
+            width: 20px;
+            height: 20%;
+        }
+    }
+}
+
+.bar{
+    background: linear-gradient(to left, red, transparent);
+    transition: .6s ease-in-out;
+}

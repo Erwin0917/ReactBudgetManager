@@ -192,14 +192,14 @@ class Table extends Component {
                             <div className="list__item__value__wrapper category__item__wrapper">
                                 {
                                     hasTags ?
-                                    <input name={categoryName} id={categoryName} onChange={e => this.debounceHandler(e, e.currentTarget)}/> :
-                                    <input name={categoryName} id={categoryName} onChange={e => this.debounceHandler(e, e.currentTarget)} defaultValue={catValue}/>
+                                    <input name={categoryName} id={categoryName} onChange={e => this.debounceHandler(e, e.currentTarget)} autoComplete="off"/> :
+                                    <input name={categoryName} id={categoryName} onChange={e => this.debounceHandler(e, e.currentTarget)} defaultValue={catValue} autoComplete="off"/>
 
                                 }
                                 PLN
                             </div> :
                             <div className="list__item__value__wrapper category__item__wrapper">
-                                <input name={categoryName} id={categoryName} disabled/>PLN
+                                <input name={categoryName} id={categoryName} disabled autoComplete="off"/>PLN
                             </div>
                         }
                     </div>
@@ -215,7 +215,7 @@ class Table extends Component {
                                             <label htmlFor={tagName} className={classes.item__title}>{tagName}</label>
                                             <div className="list__item__value__wrapper currentTag__item__wrapper">
 
-                                                <input name={tagName} id={tagName} onChange={e => this.debounceHandler(e, e.currentTarget)} defaultValue={tagValue}/>PLN
+                                                <input name={tagName} id={tagName} onChange={e => this.debounceHandler(e, e.currentTarget)} defaultValue={tagValue} autoComplete="off"/>PLN
                                             </div>
                                         </li>
                                 )})
@@ -242,14 +242,14 @@ class Table extends Component {
                     <h2 className={classes.title}>{this.props.tableTitle}</h2>
                     <div className="list__header__summary">
                         <label htmlFor={`summary-${(this.props.tableTitle).split(" ")[1]}`} >Razem:</label>
-                        <input id={`summary-${(this.props.tableTitle).split(" ")[1]}`} disabled/>PLN
+                        <input id={`summary-${(this.props.tableTitle).split(" ")[1]}`} disabled autoComplete="off"/>PLN
                     </div>
                 </div>
                 <ul className={classes.content__wrapper}>
                    {this.buildTableItems(this.props.data)}
                 </ul>
                 <div className={classes.footer}>
-                    <Button text="Zapisz" onClick={() => this.props.onSave(this.state.inputs)}/>
+                    <Button text="Zapisz" onClick={() => this.props.onSave(this.state.inputs)} className="button__warning"/>
                 </div>
             </div>
         )

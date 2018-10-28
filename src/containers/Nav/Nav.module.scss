@@ -9,11 +9,12 @@
     align-content: flex-start;
     overflow-y: auto;
     overflow-x: hidden;
+    background-color: #fff;
 }
 
 .__item {
     text-decoration: none;
-    color: $color-text-light;
+    color: $color-text-dark;
     width: 100%;
     padding-left: 30px;
     margin: 5px 0;

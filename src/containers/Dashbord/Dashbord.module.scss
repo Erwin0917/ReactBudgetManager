@@ -1,17 +1,23 @@
 @import "../../styleConfig.scss";
 
 .module__wrapper{
-    display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
+    position: relative;
 
 }
 
-.plan__wrapper, .realization__wrapper{
-    width: 50%;
+.content__header{
+    position: relative;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.plan__wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    border-radius: 8px;
+    color: $color-text-light;
+    align-content: flex-start;
 }
 
 .section__title__wrapper{
@@ -23,32 +29,98 @@
 .section__title{
     font-size: remy($size-header-section);
     padding: 8px 0;
-    background-color: rgba($color-placeholder, .15);
-    width: 500px;
+    background-color: $color-placeholder-light;
+    width: 100%;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 
 }
 .section__item{
     display: flex;
-    width: 250px;
+    width: 50%;
     padding: 10px;
     padding-top: 15px;
-    margin: 5px 0;
+    padding-left: 20px;
     margin-top: 0;
     font-weight: 600;
-    border-left: 1px solid rgba($color-placeholder, .15);
-    border-bottom: 1px solid rgba($color-placeholder, .15);
-    border-bottom-left-radius: 8px;
+    border-top: 1px solid rgba($color-text-light, .2);
+    border-left: 1px solid rgba($color-text-light, .2);
 
-    &:last-child{
-        border-right: 1px solid rgba($color-placeholder, .15);
-        border-bottom: 1px solid rgba($color-placeholder, .15);
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 8px;
+    &__full{
+        width: 100%;
+        border-top: 1px solid rgba($color-text-light, .2);
+        font-weight: 600;
+        padding: 10px 0;
+
+
+
+    }
+
+    &:nth-child(even){
+        border-left: 0;
+    }
+
+    h3{
+        min-width: 165px;
+        text-align: left;
     }
 }
 
+.rest__val{
+    font-size: remy($size-text-big);
+    padding-top: 7px;
+}
+
+
+
 .section__value{
     margin-left: 10px;
+}
+
+.category__realization{
+    color: $color-text-light;
+    margin: 25px 0;
+
+    .category__wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 20px 0;
+
+
+      :global{
+          .char__wrapper{
+                width: 60%;
+                flex-grow: 1;
+            }
+
+      }
+    }
+    .category__title{
+        width: 15%;
+        min-width: 150px;
+    }
+
+    .tags__wrapper{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background-color: rgba($color: #000000, $alpha: .2);
+        padding-left: 15px;
+        padding-top: 15px;
+
+        :global{
+            .char__wrapper{
+                  width: 60%;
+                  flex-grow: 1;
+              }
+
+        }
+    }
+
+    .tag__title{
+        width: 15%;
+        min-width: 150px;
+    }
 }

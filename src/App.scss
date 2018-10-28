@@ -48,12 +48,12 @@ h1,h2,h2,h4, .header{
 
 :global{
   .content__wrapper{
-    background-color: #fff;
     width: calc(100% - 300px );
     min-height: 100vh;
     position: relative;
     left: 100%;
     transform: translateX(-100%);
+    padding-right: 20px;
   }
 
   .content__container{
@@ -64,7 +64,6 @@ h1,h2,h2,h4, .header{
   }
 
   .content__header {
-    border-bottom: 1px solid $color-main;
     padding: 20px;
     display: flex;
     flex-wrap: wrap;
@@ -74,8 +73,13 @@ h1,h2,h2,h4, .header{
       margin: 0;
       display: inline-block;
       width: 100%;
-      //text-align: left;
+      text-align: left;
       margin-bottom: 20px;
+      color: $color-text-light;
+      padding: 15px;
+      border-bottom: 1px solid $color-bg-content;
+      font-weight: 400;
+
     }
 
     &-subTitle{
@@ -83,11 +87,57 @@ h1,h2,h2,h4, .header{
     }
   }
 
+  .block{
+    background: linear-gradient(45deg,  $color-bg-content,  rgba($color-bg-content, .05));
+    box-shadow: 0px 0px 6px 0px rgba($color-main, .3);
+    border: 1px solid rgba($color-text-light, .2);
+    border-radius: 8px;
+
+
+    &__wrapper{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      width: 100%;
+      margin: 10px 0 ;
+    }
+
+    &__title{
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+      width: 100%;
+      text-align: left;
+      font-size: remy($size-table-header);
+      color: $color-text-light;
+      padding: 15px;
+      letter-spacing: 1px;
+      background-color: $color-bg-content;
+    }
+
+    &_1-2{
+      width: 48.5%;
+
+      &:nth-child(odd){
+        margin-right: 3%;
+      }
+    }
+
+    &_1-3{
+      width: 31%;
+    }
+  }
+
   .col-expenses{
     color: $color-expenses;
   }
+  .col-bg-expenses{
+    background: $color-incomes !important;
+  }
   .col-incomes{
     color: $color-incomes;
+  }
+  .col-bg-incomes{
+    background: $color-expenses !important;
   }
 
 }

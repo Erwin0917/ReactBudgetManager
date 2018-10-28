@@ -6,6 +6,8 @@ import firebase from "../../firebase/config";
 import FastAdd from "./FastAdd/FastAdd";
 import Realization from "./Realization/Realization";
 
+import classes from "./Dashbord.module.scss";
+
 const database = firebase.database();
 
 class Dashbord extends Component {
@@ -30,7 +32,8 @@ class Dashbord extends Component {
                     data: {
                         expenses: snap.expenses,
                         incomes: snap.incomes,
-                        planned: snap.planned
+                        planned: snap.planned,
+                        allCat: snap.allCat
                     }
                 })
 			},
@@ -43,14 +46,15 @@ class Dashbord extends Component {
     render() {
     return (
      <div className=''>
-        <div className="content__header">
-            <h1 className="content__header-title">Szybkie dodawanie:</h1>
+        <div className={["content__header", classes.content__header].join(" ")}>
+            <h1 className="content__header-title">DASHBOARD</h1>
             <FastAdd/>
         </div>
         <div>
             <Realization
                 data={this.state.data}
             />
+
             Realizacja budzetu w kategoriach<br/>
             Ostatnie wydatki - możliwość edycji zeszly miesiac/tydzien button<br/>
         </div>

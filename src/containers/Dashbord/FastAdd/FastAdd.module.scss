@@ -5,6 +5,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-grow: 1;
+    z-index: 200;
+    border-radius: 8px;
 
     .input__amount {
         max-width: 60px;
@@ -12,15 +14,22 @@
     input{
         margin: 10px;
     }
+    :global{
+        .block__title{
+            margin-bottom: 5px;
+        }
+
+    }
 
 }
 .expenses__wrapper,
 .earnings__wrapper {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 10px 0;
+    padding: 5px;
+    margin: 5px 10px;
 
     input{
         text-align: center;
@@ -29,13 +38,11 @@
 }
 
 .expenses__wrapper{
-    background: linear-gradient(to bottom, #ffffff, #f0d9de);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    background: linear-gradient(to left, transparent 50%, rgba($color-expenses, .1) );
+    border-left: 8px solid $color-expenses;
 }
 .earnings__wrapper{
-    background: linear-gradient(to top, #ffffff, #d5ece4);
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
+    background: linear-gradient(to left, transparent 50%, rgba($color-incomes, .1) );
+    border-left: 8px solid $color-incomes;
 }
 

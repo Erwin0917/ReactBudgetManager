@@ -1,20 +1,8 @@
 @import "../../styleConfig.scss";
 
 .wrapper{
-    margin: 10px;
-    border-radius: 8px;
-    box-shadow: 1px 1px 5px rgba( $color-main,  .15);
-    border: 1px solid rgba( $color-main,  .15);
-
     overflow: auto;
-
-    &__half{
-        width: 48%;
-    }
-    &__small{
-        width: 48%;
-        max-width: 450px;
-    }
+    border-radius: 8px;
 
     input{
         border: 0;
@@ -22,13 +10,15 @@
         margin: 0 10px;
         min-width: 45px;
         max-width: 70px;
-        background-color: rgba($color-thr, .05);
+        background-color: rgba($color-bg-content, .05);
         padding: 2px 5px;
         font-weight: 600;
         outline: none;
+        color: $color-text-light;
+        border-color: $color-bg-content;
 
         &:focus, &:active{
-            border-bottom: 1px solid $color-thr;
+            border-bottom: 1px solid $color-bg-content;
         }
     }
     label{
@@ -37,10 +27,18 @@
 }
 
 .header{
-    padding: 20px;
-    background-color: rgba($color-main, .1);
     display: flex;
     justify-content: space-between;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    width: 100%;
+    text-align: left;
+    color: $color-text-light;
+    padding: 15px;
+    background-color: $color-bg-content;
+    border-bottom: 1px solid $color-bg-content;
+    box-shadow: 0 0px 0 1px  rgba( black,  .7);
+
 }
 
 .title{
@@ -57,7 +55,8 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    background-color: rgba( $color-main,  .05);
+    background-color: rgba( $color-bg-content,  .15);
+    color: $color-text-light;
 
 
     &:first-child{
@@ -71,9 +70,9 @@
 .item__title{
     width: 30%;
     flex: 1 1 30%;
-    flex-basis: 1;
     min-width: 150px;
     text-align: left;
+    color: $color-text-light;
 }
 
 .tags__wrapper{
@@ -82,7 +81,8 @@
     .item{
         padding-left: 40px;
         border-bottom: 0;
-        background-color: rgba(#fff, .75);
+        background-color: rgba( $color-bg-content,  .05);
+
         &:first-child{
             border-top-left-radius: 8px;
             border-top-right-radius: 8px;
