@@ -8,6 +8,7 @@
   line-height: 1.2;
   color: $color-text-dark;
   background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  background: linear-gradient(60deg, #0f0c29, #0e0e11, #1d1d33);
   min-height: 100vh;
   font-size: remy($size-text-regular);
 }
@@ -138,6 +139,20 @@ h1,h2,h2,h4, .header{
   }
   .col-bg-incomes{
     background: $color-expenses !important;
+  }
+
+
+  .ico{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    &-arrow{
+      background-image: url(../src/img/arrow.svg);
+    }
   }
 
 }

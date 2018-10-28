@@ -77,15 +77,7 @@ class Realization extends Component {
     renderRest = (data)=>{
         let rest = 0;
 
-
-        Object.keys(data.incomes).map( val =>{
-            rest = rest + parseInt(data.incomes[val].price);
-            return val;
-        })
-        Object.keys(data.expenses).map( val =>{
-            rest = rest - parseInt(data.expenses[val].price);
-            return val;
-        })
+        rest = this.state.incomes - this.state.expeneses;
 
         return <div className={classes.rest__val}>{rest} PLN</div>
     }
@@ -94,22 +86,18 @@ class Realization extends Component {
     renderCategoryCharts = (data) =>{
 
         const thisMonthExpenses = data.expenses[this.year][this.month];
-        let usedCategory = [];
         let maxValue = 0;
         let allExpensesCategories = data.allCat;
 
         /* Obliczanie maksymalnej wartości dla wykresu */
 
+        /* FIXME: W obliczaniu wyciągnąć wartości do zmiennych, nie robić tego samego dla renderowania */
         allExpensesCategories.map( (categoryWrapper, index) => {
-            const categoryName = categoryWrapper.cat;
             const categoryTagsList = categoryWrapper.sub;
 
             let plannedValue = 0;
             let currentValue = 0;
             let lastMonthValue; /* TODO: niewiadomo czy będzie */
-
-            maxValue = parseInt(plannedValue)  > maxValue ? parseInt(plannedValue) : maxValue;
-            maxValue = parseInt(currentValue)  > maxValue ? parseInt(currentValue) : maxValue;
 
             categoryTagsList.map( (tag, tagIndex) => {
                     const currentTagName = tag;
@@ -124,6 +112,8 @@ class Realization extends Component {
                             if(currentTagName === plannedCategoryName){
                                     currentTagPlannedValue += parseInt(plannedCategoryValue);
                             }
+
+                            return plannedCategory;
                     });
 
                     Object.keys(thisMonthExpenses).map( (day) => {
@@ -134,11 +124,17 @@ class Realization extends Component {
                                     if(currentTagName === tagExpenseName[0]){
                                         currentTagCurrentValue += parseInt(tagExpenseValue);
                                     }
+
+                                    return inDay;
                             });
+                        return day;
                     })
 
                     plannedValue += currentTagPlannedValue;
                     currentValue += currentTagCurrentValue;
+
+                    maxValue = parseInt(plannedValue)  > maxValue ? parseInt(plannedValue) : maxValue;
+                    maxValue = parseInt(currentValue)  > maxValue ? parseInt(currentValue) : maxValue;
 
                     return tag;
             })
@@ -169,6 +165,7 @@ class Realization extends Component {
                                 if(currentTagName === plannedCategoryName){
                                         currentTagPlannedValue += parseInt(plannedCategoryValue);
                                 }
+                            return plannedCategory;
                         });
 
                         Object.keys(thisMonthExpenses).map( (day) => {
@@ -179,33 +176,77 @@ class Realization extends Component {
                                         if(currentTagName === tagExpenseName[0]){
                                             currentTagCurrentValue += parseInt(tagExpenseValue);
                                         }
+
+                                        return inDay;
                                 });
+                            return day;
                         })
 
                         plannedValue += currentTagPlannedValue;
                         currentValue += currentTagCurrentValue;
 
-                        return (
-                            <div className={classes.tags__wrapper} key={tagIndex} >
-                                <div>{currentTagName}</div>
-                                <div>Planowane: {currentTagPlannedValue}</div>
-                                <div>Rzeczywiste: {currentTagCurrentValue}</div>
-                            </div>
-                        )
+                        if( currentTagPlannedValue + currentTagCurrentValue > 0){
+                            return (
+                                <div className={classes.tag} key={tagIndex} >
+
+                                    <MyChart barData={[{"barName":[null, null],"barVal": [currentTagPlannedValue, currentTagCurrentValue], "style":["percent", "percent"], "color": ["linear-gradient(to right, rgba(255, 255, 255, .1) 0%, #0f0c29 90%, #0f0c29 100%)", "linear-gradient(to right, rgba(244, 67, 54, .1) 0%, #4c0cc4 90%, #4c0cc4 100%)"]}]}     maxValue={maxValue} tooltip={["planowane", "rzeczywiste"] } stacked slim/>
+
+                                    <div className={classes.tag__title}>{currentTagName}</div>
+                                    <div className={classes.char__info}>{`Wydano: ${currentTagCurrentValue}`}</div>
+                                </div>
+                            )
+                        }else{
+                            return null;
+                        }
+
+
                 })
 
-                return (
-                    <div key={index} className={classes.category__realization}>
-                        <div className={classes.category__wrapper}>
-                            <div className={classes.category__title}>{categoryName}</div>
-                            <MyChart barData={[{"barName":[null, null],"barVal": [plannedValue, currentValue], "style":["percent", "percent"]}]} maxValue={maxValue} tooltip={["planowane", "rzeczywiste"]} stacked/>
-                            {tagsWrapper}
+                if(plannedValue + currentValue > 0){
+                    return (
+                        <div className={classes.category__wrapper} key={index}>
+
+                            <MyChart barData={[{"barName":[null, null],"barVal": [plannedValue, currentValue], "style":["percent", "percent"], "color": ["linear-gradient(to right, rgba(255, 255, 255, .1) 0%, #0f0c29 90%, #0f0c29 100%)", "linear-gradient(to right, rgba(244, 67, 54, .1) 0%, rgba(244, 67, 54, 1) 90%, rgb(255, 12, 12) 100%)"]}]} maxValue={maxValue} tooltip={["planowane", "rzeczywiste"]} stacked slim/>
+
+                            <div className={classes.category__title} onClick={ e => this.openTagsList(e)}><span className="ico ico-arrow"></span>{categoryName}</div>
+                            <div className={classes.char__info}>{`Wydano: ${currentValue}`}</div>
+
+                            <div className={classes.tags__wrapper}>
+                                {tagsWrapper}
+                            </div>
                         </div>
-                    </div>
-                )
+                    )
+                }else{
+                    return null;
+                }
+
+
 
 
         })
+
+    }
+
+
+    openTagsList = e =>{
+        const target = e.currentTarget;
+        const arrow = target.querySelector(".ico-arrow");
+        const categoryWrapper = target.closest(`.${classes.category__wrapper}`);
+        const categoryWrapperheight = categoryWrapper.offsetHeight;
+        const tagsWrapper = categoryWrapper.querySelector(`.${classes.tags__wrapper}`);
+        const tagsWrapperHeight = tagsWrapper.offsetHeight;
+
+
+
+        if(target.classList.contains("is-active") ){
+            categoryWrapper.style.height = `${categoryWrapperheight - tagsWrapperHeight}px`;
+        }else{
+            categoryWrapper.style.height = `${categoryWrapperheight + tagsWrapperHeight}px`;
+        }
+
+        target.classList.toggle("is-active")
+        arrow.classList.toggle("is-active");
+
 
     }
 

@@ -94,7 +94,7 @@ class FastAdd extends Component {
 
 
 		database
-			.ref(`users/${userId}/${type}/${date.getFullYear()}/${date.getUTCMonth() + 1}/${date.getUTCDate()}`)
+			.ref(`users/${userId}/${type}/${year}/${month}/${day}`)
 			.push(data, function(error) {
 				if (error) console.log(error);
             });

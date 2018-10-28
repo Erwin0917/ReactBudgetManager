@@ -79,26 +79,65 @@
 
 .category__realization{
     color: $color-text-light;
-    margin: 25px 0;
+    margin: 20px 0;
 
     .category__wrapper{
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        margin: 20px 0;
+        justify-content: space-between;
+        padding-top: 12px;
+        background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.1) 100%);
+        border-bottom: 1px solid rgba($color-placeholder-light, 0.4);
+        height:65px;
+        overflow: hidden;
+        transition: .3s ease-in-out;
 
 
       :global{
           .char__wrapper{
-                width: 60%;
+                width: 100%;
                 flex-grow: 1;
+                height: 20px;
+                padding: 0 20px;
+
             }
 
       }
     }
     .category__title{
-        width: 15%;
         min-width: 150px;
+        text-transform: capitalize;
+        cursor: pointer;
+        text-align: left;
+        margin-right: 8px;
+        padding: 5px 0;
+        padding-left: 10px;
+
+        :global{
+
+            .ico{
+                width: 10px;
+                height: 10px;
+                transition: .3s ease-out;
+                margin-right: 8px;
+                transform: rotate(90deg);
+
+                &.is-active{
+                    transform: rotate(-90deg);
+                }
+            }
+        }
+
+        &:hover{
+            color: $color-sec;
+        }
+
+
+    }
+
+    .char__info{
+        padding-right: 20px;
     }
 
     .tags__wrapper{
@@ -109,18 +148,41 @@
         background-color: rgba($color: #000000, $alpha: .2);
         padding-left: 15px;
         padding-top: 15px;
+        padding-bottom: 15px;
+        margin-top: 15px;
 
         :global{
             .char__wrapper{
-                  width: 60%;
-                  flex-grow: 1;
+                  height: 15px;
               }
 
+        }
+
+    }
+
+    .tag{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 5px 0;
+        justify-content: space-between;
+
+        .char__info{
+            padding-right: 25px;
         }
     }
 
     .tag__title{
         width: 15%;
         min-width: 150px;
+        text-align: left;
+        padding-right: 5px;
+        text-transform: capitalize;
+        font-size: remy($size-text--small);
+        padding-left: 20px;
     }
+
+
+
 }

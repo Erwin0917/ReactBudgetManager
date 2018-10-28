@@ -4,7 +4,6 @@ import classes from "./Planning.module.scss"
 
 import IncomesPlan from "./IncomesPlan/IncomesPlan";
 import ExpensesPlan from "./ExpensesPlan/ExpensesPlan";
-import { join } from "path";
 
 class Planning extends Component {
 

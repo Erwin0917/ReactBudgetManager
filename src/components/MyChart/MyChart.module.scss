@@ -11,14 +11,49 @@
     position: relative;
     background: rgba($color-main, .3);
 
+    &__slim{
+        border: 1px solid rgba($color-placeholder-light, .2);
+        border-radius: 8px;
+        overflow: hidden;
+
+        .bar__wrapper{
+
+            .bar{
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+            }
+        }
+    }
+
     &__horizontal{
         width: 100%;
         .bar__wrapper{
             width: 100%;
+
+            &:first-child{
+                .bar__stacked{
+                    height: 100%;
+                }
+            }
         }
         .bar{
             height: 40px;
             width: 0;
+
+
+            &__stacked{
+                position: absolute;
+                height: 55%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            span{
+                display: inline-block;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%) translateX(-50%);
+            }
         }
     }
     &__vertical{
@@ -31,9 +66,14 @@
             height: 20%;
         }
     }
+
+
 }
 
 .bar{
     background: linear-gradient(to left, red, transparent);
     transition: .6s ease-in-out;
+
+
 }
+
