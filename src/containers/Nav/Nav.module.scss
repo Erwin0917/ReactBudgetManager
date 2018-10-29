@@ -1,20 +1,19 @@
 @import "../../styleConfig.scss";
 
 .wrapper{
-    position: absolute;
+    position: relative;
     display: flex;
     flex-wrap: wrap;
-    height: 100vh;
     width: 250px;
     align-content: flex-start;
     overflow-y: auto;
     overflow-x: hidden;
-    background-color: #fff;
+    background-color: rgba($color-main, 1);
 }
 
 .__item {
     text-decoration: none;
-    color: $color-text-dark;
+    color: $color-text-light;
     width: 100%;
     padding-left: 30px;
     margin: 5px 0;
@@ -26,8 +25,7 @@
 
         &:hover,
         &:focus{
-
-            text-shadow: 3px 2px 4px $color-sec, -2px 0px 5px $color-sec;
+            color: $color-thr;
         }
     }
 

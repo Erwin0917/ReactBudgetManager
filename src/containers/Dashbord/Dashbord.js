@@ -5,6 +5,7 @@ import firebase from "../../firebase/config";
 
 import FastAdd from "./FastAdd/FastAdd";
 import Realization from "./Realization/Realization";
+import HistoryTable from "../../components/HistoryTable/HistoryTable";
 
 import classes from "./Dashbord.module.scss";
 
@@ -48,15 +49,17 @@ class Dashbord extends Component {
      <div className=''>
         <div className={["content__header", classes.content__header].join(" ")}>
             <h1 className="content__header-title">DASHBOARD</h1>
-            <FastAdd/>
+            <div className='block__wrapper'>
+                <FastAdd />
+            </div>
         </div>
-        <div>
-            <Realization
-                data={this.state.data}
-            />
-
-            Realizacja budzetu w kategoriach<br/>
-            Ostatnie wydatki - możliwość edycji zeszly miesiac/tydzien button<br/>
+        <div className='block__wrapper'>
+            <div className="block_1-2">
+                <Realization data={this.state.data} />
+            </div>
+            <div className="block block_1-2">
+                <HistoryTable data={this.state.data} />
+            </div>
         </div>
      </div>
         )

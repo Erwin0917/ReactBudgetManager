@@ -24,14 +24,15 @@ class Realization extends Component {
 
     componentWillReceiveProps(nextProps){
 
-        this.setSum(nextProps.data.incomes, nextProps.data.expenses);
+        this.setSum(nextProps.data.incomes, nextProps.data.expenses, nextProps.data.planned.incomes);
 
     }
 
-    setSum = (incomes, expenses) => {
+    setSum = (incomes, expenses, plannedIncomes) => {
         if( !incomes || !expenses) return;
         let incomesSum = 0;
         let expensesSum = 0;
+        let plannedIncomesSum = 0;
 
         Object.keys(incomes).map( val =>{
             incomesSum = incomesSum + parseInt(incomes[val].price);
@@ -49,10 +50,14 @@ class Realization extends Component {
             return day;
         })
 
+        plannedIncomes.map( item =>{
+            plannedIncomesSum += parseInt(item[1]);
+        })
 
         this.setState({
             ...this.state,
             incomes: incomesSum,
+            plannedIncomes: plannedIncomesSum,
             expenses: expensesSum
         })
 
@@ -74,12 +79,16 @@ class Realization extends Component {
         return <div className={[classes.section__value, className].join(" ")} >{sum} PLN</div>
     }
 
-    renderRest = (data)=>{
+    renderRest = (filter)=>{
         let rest = 0;
 
-        rest = this.state.incomes - this.state.expeneses;
+        if(filter === "current"){
+            rest = this.state.incomes - this.state.expenses;
+        }else{
+            rest = this.state.plannedIncomes - this.state.expenses;
+        }
 
-        return <div className={classes.rest__val}>{rest} PLN</div>
+        return <div className={[classes.section__value, "col-anchor"].join(" ")}>{rest} PLN</div>
     }
 
 
@@ -189,10 +198,10 @@ class Realization extends Component {
                             return (
                                 <div className={classes.tag} key={tagIndex} >
 
-                                    <MyChart barData={[{"barName":[null, null],"barVal": [currentTagPlannedValue, currentTagCurrentValue], "style":["percent", "percent"], "color": ["linear-gradient(to right, rgba(255, 255, 255, .1) 0%, #0f0c29 90%, #0f0c29 100%)", "linear-gradient(to right, rgba(244, 67, 54, .1) 0%, #4c0cc4 90%, #4c0cc4 100%)"]}]}     maxValue={maxValue} tooltip={["planowane", "rzeczywiste"] } stacked slim/>
+                                    <MyChart barData={[{"barName":[null, null],"barVal": [currentTagPlannedValue, currentTagCurrentValue], "style":["percent", "percent"], "color": ["rgb(221, 201, 239)", "#4c0cc4"]}]}     maxValue={maxValue} tooltip={["planowane", "rzeczywiste"] } stacked slim/>
 
                                     <div className={classes.tag__title}>{currentTagName}</div>
-                                    <div className={classes.char__info}>{`Wydano: ${currentTagCurrentValue}`}</div>
+                                    <div className={classes.char__info}>Wydane: <span className="col-expenses">{currentTagCurrentValue}</span></div>
                                 </div>
                             )
                         }else{
@@ -206,10 +215,10 @@ class Realization extends Component {
                     return (
                         <div className={classes.category__wrapper} key={index}>
 
-                            <MyChart barData={[{"barName":[null, null],"barVal": [plannedValue, currentValue], "style":["percent", "percent"], "color": ["linear-gradient(to right, rgba(255, 255, 255, .1) 0%, #0f0c29 90%, #0f0c29 100%)", "linear-gradient(to right, rgba(244, 67, 54, .1) 0%, rgba(244, 67, 54, 1) 90%, rgb(255, 12, 12) 100%)"]}]} maxValue={maxValue} tooltip={["planowane", "rzeczywiste"]} stacked slim/>
+                            <MyChart barData={[{"barName":[null, null],"barVal": [plannedValue, currentValue], "style":["percent", "percent"], "color": ["rgb(236, 229, 243)", "#4c0cc4"]}]} maxValue={maxValue} tooltip={["planowane", "rzeczywiste"]} stacked slim/>
 
-                            <div className={classes.category__title} onClick={ e => this.openTagsList(e)}><span className="ico ico-arrow"></span>{categoryName}</div>
-                            <div className={classes.char__info}>{`Wydano: ${currentValue}`}</div>
+                            <div className={classes.category__title} onClick={ e => this.openTagsList(e)}>{categoryName}<span className="ico ico-arrow"></span></div>
+                            <div className={classes.char__info}>Wydane: <span className="col-expenses">{currentValue}</span></div>
 
                             <div className={classes.tags__wrapper}>
                                 {tagsWrapper}
@@ -253,9 +262,9 @@ class Realization extends Component {
     render(){
 
         return (
-            <div className={[classes.module__wrapper, "block__wrapper"].join(" ")}>
-                <div className={[classes.plan__wrapper, "block block_1-2"].join(" ")}>
-                    <h2 className="block__title">Twój budżet - w tym miesiącu</h2>
+            <div className={[classes.module__wrapper, "block__wrapper block block_1-2"].join(" ")}>
+                <div className={[classes.plan__wrapper, "block"].join(" ")}>
+                    <h2 className="block__title">Twój budżet</h2>
                     <div className={classes.section__item}>
                         <h3 >Planowany przychód: </h3>
                     {
@@ -264,57 +273,60 @@ class Realization extends Component {
                         <div>...</div>
 
                     }
-                    </div>
-                    <div className={classes.section__item}>
-                        <h3 >Planowane wydatki: </h3>
-                    {
-                        this.props.data ?
-                            this.renderSum(this.props.data.planned.expenses, "col-expenses")
-                         :
-                        <div>...</div>
-                    }
-                    </div>
-                    <div className={classes.section__item} >
-                        <h3 >Rzeczywiste przychody: </h3>
+                    <h3 >Rzeczywisty przychód: </h3>
                     {
                         this.props.data ?
                             this.renderSum(this.state.incomes, "col-incomes")
-                         :
+                        :
                         <div>...</div>
                     }
                     </div>
+
                     <div className={classes.section__item} >
-                        <h3 >Rzeczywiste wydatki: </h3>
+                    <h3 >Planowane wydatki: </h3>
+                    {
+                        this.props.data ?
+                            this.renderSum(this.props.data.planned.expenses, "col-expenses")
+                        :
+                        <div>...</div>
+                    }
+
+                    <h3 >Rzeczywiste wydatki: </h3>
                     {
                         this.props.data ?
                             this.renderSum(this.state.expenses, "col-expenses")
-                         :
+                        :
                         <div>...</div>
                     }
                     </div>
+
+                    <div className={classes.section__item}>
+                        <h3>Do wydania pozostało:</h3>
+                        {
+                        this.props.data ?
+                            this.renderRest("current")
+                        :
+                        <div>...</div>
+                        }
+                    <h3>Pozostało według planu:</h3>
+                        <div className={[classes.section__value, "col-anchor"].join(" ")}>
+                            {
+                            this.props.data ?
+                                this.renderRest("planned")
+                            :
+                            <div>...</div>
+                            }
+                        </div>
+                    </div>
+
                     <div className={classes.section__item__full} >
                         <MyChart barData={[{"barName":[null],"barVal": [this.state.expenses], "style":["percent"]}]} gradient maxValue={this.state.incomes} />
                     </div>
                 </div>
-                <div className={[classes.plan__wrapper, "block block_1-2"].join(" ")}>
-                    <h2 className="block__title">Twój budżet</h2>
-                    <div className={classes.section__item__full}>
-                        <h3>Do wydania pozostało:</h3>
-                        {
-                        this.props.data ?
-                            this.renderRest(this.props.data)
-                         :
-                        <div>...</div>
-                    }
-                    </div>
-                    <div className={classes.section__item__full}>
-                        Portfel: <div className={classes.rest__val}>in progress...</div>
-                    </div>
 
-                </div>
-
-                <div className={[classes.category__realization, "block block_1-2"].join(" ")}>
+                <div className={[classes.category__realization, "block "].join(" ")}>
                     <h2 className="block__title">Stopień realizacji budżetu w kategoriach</h2>
+                    <div className="legend__wrapper"><div className="legend__item">Rzeczywiste</div><div className="legend__item">Planowane</div><div className="legend__item">Ostatni miesiąc</div></div>
                     <div className={classes.section__item__full}>
 
                     {  this.props.data && this.renderCategoryCharts(this.props.data) }
@@ -323,8 +335,6 @@ class Realization extends Component {
 
 
                 </div>
-
-
             </div>
         )
     }

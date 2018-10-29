@@ -249,7 +249,7 @@ class Table extends Component {
                    {this.buildTableItems(this.props.data)}
                 </ul>
                 <div className={classes.footer}>
-                    <Button text="Zapisz" onClick={() => this.props.onSave(this.state.inputs)} className="button__warning"/>
+                    <Button text="Zapisz" onClick={() => this.props.onSave(this.state.inputs)} />
                 </div>
             </div>
         )

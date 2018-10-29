@@ -15,9 +15,19 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-radius: 8px;
-    color: $color-text-light;
+    color: $color-text-dark;
     align-content: flex-start;
+
+    :global{
+        .char__wrapper{
+              width: 95%;
+              left: 50%;
+              transform: translateX(-50%);
+              margin-bottom: 10px;
+
+          }
+
+    }
 }
 
 .section__title__wrapper{
@@ -37,7 +47,8 @@
 }
 .section__item{
     display: flex;
-    width: 50%;
+    flex-wrap: wrap;
+    width: 33%;
     padding: 10px;
     padding-top: 15px;
     padding-left: 20px;
@@ -46,14 +57,16 @@
     border-top: 1px solid rgba($color-text-light, .2);
     border-left: 1px solid rgba($color-text-light, .2);
 
+
+    &__half{
+        width: 50%;
+        font-weight: 600;
+        padding-top: 10px;
+    }
     &__full{
         width: 100%;
-        border-top: 1px solid rgba($color-text-light, .2);
         font-weight: 600;
-        padding: 10px 0;
-
-
-
+        padding-top: 10px;
     }
 
     &:nth-child(even){
@@ -61,25 +74,51 @@
     }
 
     h3{
-        min-width: 165px;
+        width: 100%;
         text-align: left;
     }
 }
 
-.rest__val{
-    font-size: remy($size-text-big);
-    padding-top: 7px;
-}
-
-
-
 .section__value{
-    margin-left: 10px;
+    font-size: remy($size-text-big);
+    font-weight: 600;
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
 
 .category__realization{
-    color: $color-text-light;
-    margin: 20px 0;
+    color: $color-text-dark;
+    display: flex;
+    flex-wrap: wrap;
+
+    :global{
+        .block__title{
+            width: auto;
+            flex-grow: 1;
+        }
+
+        .legend__wrapper{
+            padding: 0 10px;
+        }
+        .legend__item{
+            &:nth-child(1){
+                &::before{
+                    border-color: $color-thr;
+
+                }
+            }
+            &:nth-child(2){
+                &::before{
+                    border-color: rgb(236, 229, 243);
+                }
+            }
+            &:nth-child(3){
+                &::before{
+                    border-color: rgba($color-main, .6);
+                }
+            }
+        }
+    }
 
     .category__wrapper{
         display: flex;
@@ -88,10 +127,14 @@
         justify-content: space-between;
         padding-top: 12px;
         background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.1) 100%);
-        border-bottom: 1px solid rgba($color-placeholder-light, 0.4);
         height:65px;
         overflow: hidden;
         transition: .3s ease-in-out;
+        border-bottom: 1px solid rgba($color-placeholder, 0.3);
+
+        &:last-child{
+            border-bottom: 0;
+        }
 
 
       :global{
@@ -112,7 +155,7 @@
         text-align: left;
         margin-right: 8px;
         padding: 5px 0;
-        padding-left: 10px;
+        padding-left: 25px;
 
         :global{
 
@@ -120,7 +163,7 @@
                 width: 10px;
                 height: 10px;
                 transition: .3s ease-out;
-                margin-right: 8px;
+                margin-left: 8px;
                 transform: rotate(90deg);
 
                 &.is-active{
@@ -130,14 +173,14 @@
         }
 
         &:hover{
-            color: $color-sec;
+            color: $color-thr;
         }
 
 
     }
 
     .char__info{
-        padding-right: 20px;
+        padding-right: 25px;
     }
 
     .tags__wrapper{
@@ -145,11 +188,12 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        background-color: rgba($color: #000000, $alpha: .2);
-        padding-left: 15px;
+        background-color: #f0f0f0;
         padding-top: 15px;
         padding-bottom: 15px;
-        margin-top: 15px;
+        margin-top: 8px;
+
+
 
         :global{
             .char__wrapper{
@@ -165,11 +209,18 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        margin: 5px 0;
+        margin: 2px 0;
+        padding: 3px 0;
+        padding-left: 15px;
         justify-content: space-between;
+        border-bottom: 1px solid rgba($color-placeholder, 0.3);
+        &:last-child{
+            border-bottom: 0;
+        }
 
         .char__info{
             padding-right: 25px;
+            font-size: remy($size-text--small);
         }
     }
 

@@ -9,20 +9,12 @@
 
 .bars__wrapper{
     position: relative;
-    background: rgba($color-main, .3);
 
     &__slim{
-        border: 1px solid rgba($color-placeholder-light, .2);
-        border-radius: 8px;
+        border: transparent;
         overflow: hidden;
 
-        .bar__wrapper{
 
-            .bar{
-                border-top-right-radius: 8px;
-                border-bottom-right-radius: 8px;
-            }
-        }
     }
 
     &__horizontal{

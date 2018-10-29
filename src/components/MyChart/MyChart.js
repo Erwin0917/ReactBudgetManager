@@ -33,11 +33,11 @@ class MyChart extends Component {
 
                     if(this.props.gradient){
                         if(percVal <= 40){
-                            gradient = `linear-gradient(to right, rgba(76, 175, 80, 0) 0%, rgba(76, 175, 80, 1) 90%, rgb(23, 240, 30) 100%)`;
+                            gradient = `linear-gradient(to right, rgba(76, 12, 196, .1) 0%, rgba(76, 12, 196, .9) 90%,rgba(76, 12, 196, 1) 100%)`;
                         }else if(percVal > 40 && percVal < 70 ){
-                            gradient = `linear-gradient(to right, rgba(76, 175, 80, 0.6) 0%,rgba(239, 234, 98, .8) 53%,rgba(239, 234, 98, 1) 79%)`;
+                            gradient = `linear-gradient(to right, rgba(76, 12, 196, .4) 0%,rgba(76, 12, 196, .8) 53%,rgba(76, 12, 196, 1) 100%)`;
                         }else{
-                            gradient = `linear-gradient(to right, rgba(76, 175, 80, 0.3) 0%,rgba(239, 234, 98, 0.8) 53%,rgba(239, 234, 98, 0.8) 53%,rgba(255, 40, 40, 1) 90%, rgb(255, 12, 12) 100%)`;
+                            gradient = `linear-gradient(to right, rgba(76, 12, 196, .3) 0%,rgba(76, 12, 196, .8) 53%,rgba(76, 12, 196, .8) 53%, rgb(76, 12, 196) 100%)`;
                         }
                     }else if(item.color){
                             bgColor = item.color[key];
@@ -45,10 +45,10 @@ class MyChart extends Component {
 
                     if(this.props.stacked){
                         return <div className={classes.bar__wrapper} key={key}>
-                                <div className={[classes.bar, classes.bar__stacked].join(" ")} data-tip={`${value} -${this.props.tooltip[key]}`} style={{width: `${percVal}%`, background: bgColor}}></div>
+                                <div className={[classes.bar, classes.bar__stacked, "bar"].join(" ")} data-tip={`${value} -${this.props.tooltip[key]}`} style={{width: `${percVal}%`, background: bgColor}}></div>
                             </div>
                     }else{
-                        return <div className={classes.bar__wrapper} key={key}>
+                        return <div className={[classes.bar__wrapper, "bar"].join(" ")} key={key}>
                                 <div className={classes.bar} data-tip={`${value}/${maxValue}`} style={{width: `${percVal}%`, background: gradient}}></div>
                             </div>
                     }

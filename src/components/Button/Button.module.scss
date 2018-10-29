@@ -9,16 +9,17 @@
     border-radius: 5px;
     cursor: pointer;
     outline: none;
-    transition: .2s ease-out;
+    transition: .15s ease-out;
     box-shadow: 0;
-
+    box-shadow: 2px 2px 8px 0 rgba($color-main, .6),
+        0px -2px 3px 0 rgba($color-main, .2);
 
 
     &:hover,
     &:focus{
         background: linear-gradient(to right, #7036e4, #6429d1, #7036e4);
-        box-shadow: 2px 2px 8px 0 rgba($color-main, .6),
-        0px -2px 3px 0 rgba($color-main, .2);
+        box-shadow: 0px 0px 0px 0 rgba($color-main, .6),
+        0px 0px 0px 0 rgba($color-main, .2);
     }
 
 

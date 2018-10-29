@@ -136,6 +136,19 @@ class FastAdd extends Component {
 		return (
 			<div className={[classes.wrapper, "block"].join(" ")}>
 				<h2 className="block__title">Szybkie dodawanie</h2>
+				<div className={classes.earnings__wrapper}>
+					<Input
+						onChange={this.getPrice}
+						placeholder="PLN"
+						inputClass={classes.input__amount}
+					/>
+					<Select autocomplete placeholder="Żródło przychodu"  onChange={this.getCat} data={this.state.allIncomesCategories} />
+					<Button
+						text="Dodaj przychód"
+						onClick={e => this.submitDataHandler('incomes')}
+						className="col-bg-expenses"
+					/>
+				</div>
 				<div className={classes.expenses__wrapper}>
 					<Input placeholder="PLN" inputClass={classes.input__amount} onChange={this.getPrice} />
 
@@ -161,19 +174,7 @@ class FastAdd extends Component {
 						className="col-bg-incomes"
 					/>
 				</div>
-				<div className={classes.earnings__wrapper}>
-					<Input
-						onChange={this.getPrice}
-						placeholder="PLN"
-						inputClass={classes.input__amount}
-					/>
-					<Select autocomplete placeholder="Żródło przychodu"  onChange={this.getCat} data={this.state.allIncomesCategories} />
-					<Button
-						text="Dodaj przychód"
-						onClick={e => this.submitDataHandler('incomes')}
-						className="col-bg-expenses"
-					/>
-				</div>
+
 			</div>
 		);
 	}

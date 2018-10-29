@@ -6,7 +6,8 @@
     flex-wrap: wrap;
     flex-grow: 1;
     z-index: 200;
-    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 
     .input__amount {
         max-width: 60px;
@@ -24,12 +25,12 @@
 }
 .expenses__wrapper,
 .earnings__wrapper {
-    width: 100%;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    flex-grow: 1;
     padding: 5px;
-    margin: 5px 10px;
+    margin: 5px 15px;
 
     input{
         text-align: center;

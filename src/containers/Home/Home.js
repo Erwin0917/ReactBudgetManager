@@ -22,7 +22,7 @@ class Home extends Component {
     render() {
         return (
             <Router>
-                <div>
+                <div className="wrapper__flex">
                     <Nav/>
                     <div className={"content__wrapper"}>
                         <Switch>
