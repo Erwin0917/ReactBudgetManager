@@ -167,7 +167,7 @@ class FastAdd extends Component {
 
                         onChange={this.getCat}
 					/>
-					<Input placeholder="Na co znowu poszlo..." onChange={this.getDesc} />
+					<Input placeholder="Opis" onChange={this.getDesc} />
 					<Button
 						text="Dodaj wydatek"
 						onClick={e => this.submitDataHandler('expenses')}

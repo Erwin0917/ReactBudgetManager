@@ -57,7 +57,13 @@ class Dashbord extends Component {
             <div className="block_1-2">
                 <Realization data={this.state.data} />
             </div>
-            <div className="block block_1-2">
+            <div className="block_1-2 block__wrapper">
+                <div className="block">
+                    <div>Reszta ostatni miesiąc</div>
+                    <div>Portfel</div>
+                    <div>Wykres czy na +/- ten rok</div>
+                </div>
+
                 <HistoryTable data={this.state.data} />
             </div>
         </div>

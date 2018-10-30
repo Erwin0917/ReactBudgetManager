@@ -8,7 +8,7 @@ class HistoryTable extends Component {
 
     render(){
         return (
-            <div className="HistoryTable__wrapper">
+            <div className="block HistoryTable__wrapper">
                 <h2 className="block__title">Historia ostatnich wydatków</h2>
                 <div>Miesiąc/tydzień</div>
                 <div>Szukajka</div>

@@ -26,24 +26,43 @@
 .expenses__wrapper,
 .earnings__wrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    flex-grow: 1;
+    flex-wrap: wrap;
+
     padding: 5px;
     margin: 5px 15px;
+    margin-bottom: 10px;
+    text-align: left;
+
+    input,button{
+        margin: 0 15px;
+    }
 
     input{
         text-align: center;
         font-weight: 600;
     }
+
 }
 
 .expenses__wrapper{
-    background: linear-gradient(to left, transparent 50%, rgba($color-expenses, .1) );
-    border-left: 8px solid $color-expenses;
+   // border-left: 8px solid $color-expenses;
+    position: relative;
+    padding-left: 20px;
+    flex-grow: 1;
+    &::before{
+       content: "";
+       position: absolute;
+       left: 0;
+       display: block;
+       height: 70%;
+       width: 1px;
+       background-color: #d3d3d3;
+    }
 }
 .earnings__wrapper{
-    background: linear-gradient(to left, transparent 50%, rgba($color-incomes, .1) );
-    border-left: 8px solid $color-incomes;
+   // border-left: 8px solid $color-incomes;
+
 }
 
