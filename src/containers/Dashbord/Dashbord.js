@@ -6,6 +6,7 @@ import firebase from "../../firebase/config";
 import FastAdd from "./FastAdd/FastAdd";
 import Realization from "./Realization/Realization";
 import HistoryTable from "../../components/HistoryTable/HistoryTable";
+import BudgetSummary from "./BudgetSummary/BudgetSummary";
 
 import classes from "./Dashbord.module.scss";
 
@@ -58,12 +59,7 @@ class Dashbord extends Component {
                 <Realization data={this.state.data} />
             </div>
             <div className="block_1-2 block__wrapper">
-                <div className="block">
-                    <div>Reszta ostatni miesiąc</div>
-                    <div>Portfel</div>
-                    <div>Wykres czy na +/- ten rok</div>
-                </div>
-
+                <BudgetSummary />
                 <HistoryTable data={this.state.data} />
             </div>
         </div>
