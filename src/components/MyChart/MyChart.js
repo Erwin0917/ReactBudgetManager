@@ -33,11 +33,11 @@ class MyChart extends Component {
 
                     if(this.props.gradient){
                         if(percVal <= 40){
-                            gradient = `linear-gradient(to right, rgba(76, 12, 196, .1) 0%, rgba(76, 12, 196, .9) 90%,rgba(76, 12, 196, 1) 100%)`;
+                            gradient = `linear-gradient(to right, rgba(15, 12, 41, .1) 0%, rgba(15, 12, 41, .6) 90%,rgba(15, 12, 41, .8) 100%)`;
                         }else if(percVal > 40 && percVal < 70 ){
-                            gradient = `linear-gradient(to right, rgba(76, 12, 196, .4) 0%,rgba(76, 12, 196, .8) 53%,rgba(76, 12, 196, 1) 100%)`;
+                            gradient = `linear-gradient(to right, rgba(15, 12, 41, .4) 0%,rgba(15, 12, 41, .6) 53%,rgba(15, 12, 41, .8) 100%)`;
                         }else{
-                            gradient = `linear-gradient(to right, rgba(76, 12, 196, .3) 0%,rgba(76, 12, 196, .8) 53%,rgba(76, 12, 196, .8) 53%, rgb(76, 12, 196) 100%)`;
+                            gradient = `linear-gradient(to right, rgba(15, 12, 41, .4) 0%,rgba(15, 12, 41, .6) 53%,rgba(15, 12, 41, .6) 53%, rgba(15, 12, 41, .7) 100%)`;
                         }
                     }else if(item.color){
                             bgColor = item.color[key];

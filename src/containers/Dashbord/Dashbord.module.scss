@@ -18,16 +18,6 @@
     color: $color-text-dark;
     align-content: flex-start;
 
-    :global{
-        .char__wrapper{
-              width: 95%;
-              left: 50%;
-              transform: translateX(-50%);
-              margin-bottom: 10px;
-
-          }
-
-    }
 }
 
 .section__title__wrapper{
@@ -49,9 +39,8 @@
     display: flex;
     flex-wrap: wrap;
     width: 33%;
-    padding: 10px;
+    padding: 10px 20px;
     padding-top: 15px;
-    padding-left: 20px;
     margin-top: 0;
     font-weight: 600;
     border-top: 1px solid rgba($color-text-light, .2);
@@ -61,6 +50,7 @@
     &__half{
         width: 50%;
         font-weight: 600;
+
         padding-top: 10px;
     }
     &__full{
@@ -236,4 +226,23 @@
 
 
 
+}
+
+.summary__wrapper{
+    display: flex;
+    flex-wrap: wrap;
+
+    .section__item{
+        width: 50%;
+        padding: 0 20px;
+
+        &:last-child{
+            width: 100%;
+            padding: 0;
+        }
+    }
+
+    .section__value{
+        font-size: remy($size-text-superBig);
+    }
 }

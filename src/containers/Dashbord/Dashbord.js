@@ -35,7 +35,8 @@ class Dashbord extends Component {
                         expenses: snap.expenses,
                         incomes: snap.incomes,
                         planned: snap.planned,
-                        allCat: snap.allCat
+                        allCat: snap.allCat,
+                        wallet: snap.wallet
                     }
                 })
 			},
@@ -59,7 +60,7 @@ class Dashbord extends Component {
                 <Realization data={this.state.data} />
             </div>
             <div className="block_1-2 block__wrapper">
-                <BudgetSummary />
+                <BudgetSummary data={this.state.data}/>
                 <HistoryTable data={this.state.data} />
             </div>
         </div>

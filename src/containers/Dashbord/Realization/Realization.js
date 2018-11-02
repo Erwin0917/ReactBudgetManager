@@ -34,21 +34,31 @@ class Realization extends Component {
         let expensesSum = 0;
         let plannedIncomesSum = 0;
 
-        Object.keys(incomes).map( val =>{
-            incomesSum = incomesSum + parseInt(incomes[val].price);
-            return val;
-        })
+        let currentIncomes = this.state.period === "month" ? incomes[this.year][this.month] : 0;
+        if(currentIncomes){
+            Object.keys(currentIncomes).map( day =>{
+                Object.keys(currentIncomes[day]).map( inDay => {
+                    incomesSum = incomesSum + parseInt(currentIncomes[day][inDay].price);
 
-        let currentExpense = this.state.period === "month" ? expenses[this.year][this.month] : {};
-        Object.keys(currentExpense).map( day =>{
-
-            Object.keys(currentExpense[day]).map( inDay => {
-                expensesSum = expensesSum + parseInt(currentExpense[day][inDay].price);
-
-                return inDay;
+                    return inDay;
+                })
+                return day;
             })
-            return day;
-        })
+
+        }
+
+        let currentExpense = this.state.period === "month" ? expenses[this.year][this.month] : 0;
+        if(currentExpense){
+            Object.keys(currentExpense).map( day =>{
+
+                Object.keys(currentExpense[day]).map( inDay => {
+                    expensesSum = expensesSum + parseInt(currentExpense[day][inDay].price);
+
+                    return inDay;
+                })
+                return day;
+            })
+        }
 
         plannedIncomes.map( item =>{
             plannedIncomesSum += parseInt(item[1]);
@@ -124,20 +134,21 @@ class Realization extends Component {
 
                             return plannedCategory;
                     });
+                    if(thisMonthExpenses){
+                        Object.keys(thisMonthExpenses).map( (day) => {
+                                Object.keys(thisMonthExpenses[day]).map( inDay =>{
+                                        const tagExpenseName = thisMonthExpenses[day][inDay].tags;
+                                        const tagExpenseValue = thisMonthExpenses[day][inDay].price;
 
-                    Object.keys(thisMonthExpenses).map( (day) => {
-                            Object.keys(thisMonthExpenses[day]).map( inDay =>{
-                                    const tagExpenseName = thisMonthExpenses[day][inDay].tags;
-                                    const tagExpenseValue = thisMonthExpenses[day][inDay].price;
+                                        if(currentTagName === tagExpenseName[0]){
+                                            currentTagCurrentValue += parseInt(tagExpenseValue);
+                                        }
 
-                                    if(currentTagName === tagExpenseName[0]){
-                                        currentTagCurrentValue += parseInt(tagExpenseValue);
-                                    }
-
-                                    return inDay;
-                            });
-                        return day;
-                    })
+                                        return inDay;
+                                });
+                            return day;
+                        })
+                    }
 
                     plannedValue += currentTagPlannedValue;
                     currentValue += currentTagCurrentValue;
@@ -176,20 +187,21 @@ class Realization extends Component {
                                 }
                             return plannedCategory;
                         });
+                        if(thisMonthExpenses){
+                            Object.keys(thisMonthExpenses).map( (day) => {
+                                    Object.keys(thisMonthExpenses[day]).map( inDay =>{
+                                            const tagExpenseName = thisMonthExpenses[day][inDay].tags;
+                                            const tagExpenseValue = thisMonthExpenses[day][inDay].price;
 
-                        Object.keys(thisMonthExpenses).map( (day) => {
-                                Object.keys(thisMonthExpenses[day]).map( inDay =>{
-                                        const tagExpenseName = thisMonthExpenses[day][inDay].tags;
-                                        const tagExpenseValue = thisMonthExpenses[day][inDay].price;
+                                            if(currentTagName === tagExpenseName[0]){
+                                                currentTagCurrentValue += parseInt(tagExpenseValue);
+                                            }
 
-                                        if(currentTagName === tagExpenseName[0]){
-                                            currentTagCurrentValue += parseInt(tagExpenseValue);
-                                        }
-
-                                        return inDay;
-                                });
-                            return day;
-                        })
+                                            return inDay;
+                                    });
+                                return day;
+                            })
+                        }
 
                         plannedValue += currentTagPlannedValue;
                         currentValue += currentTagCurrentValue;
@@ -301,14 +313,7 @@ class Realization extends Component {
                     </div>
 
                     <div className={classes.section__item}>
-                        <h3>Do wydania pozostało:</h3>
-                        {
-                        this.props.data ?
-                            this.renderRest("current")
-                        :
-                        <div>...</div>
-                        }
-                    <h3>Pozostało według planu:</h3>
+                        <h3>Pozostało według planu:</h3>
                         <div className={[classes.section__value, "col-anchor"].join(" ")}>
                             {
                             this.props.data ?
@@ -317,6 +322,14 @@ class Realization extends Component {
                             <div>...</div>
                             }
                         </div>
+                        <h3>Do wydania pozostało:</h3>
+                        {
+                        this.props.data ?
+                            this.renderRest("current")
+                        :
+                        <div>...</div>
+                        }
+
                     </div>
 
                     <div className={classes.section__item__full} >
