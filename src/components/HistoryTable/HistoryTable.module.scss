@@ -1,0 +1,108 @@
+@import "../../styleConfig.scss";
+
+.wrapper{
+
+    :global{
+        .historyTable__header{
+            display: flex;
+
+            .filter__wrapper{
+                display: flex;
+                align-items: center;
+            }
+
+        }
+        .block__title{
+            width: auto;
+        }
+    }
+}
+
+
+.content__wrapper{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.content__item{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid rgba($color-placeholder, 0.3);
+    font-size: remy($size-text-regular);
+    font-weight: 600;
+
+    &:nth-child(even){
+        background-color: rgba($color-placeholder-light, 0.05);
+
+        :global{
+            .item{
+                &__header{
+                    background-color: rgba($color-placeholder-light, 0.1);
+                }
+            }
+        }
+    }
+
+    :global{
+
+        .item{
+            &__header{
+                width: 100%;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid rgba($color-placeholder, 0.3);
+                background-color: rgba($color-main, .05);
+            }
+
+            &__content{
+                width: 100%;
+                padding: 10px;
+                padding-left: 20px;
+                display: flex;
+                align-items: center;
+                font-size: remy($size-text--small);
+
+                &:hover{
+                    background-color: rgba($color-main, .05);
+                }
+
+
+                &__val{
+                    margin-right: 10px;
+                    text-transform: capitalize;
+                    padding: 2px 5px;
+                    border-radius: 4px;
+                }
+
+                .val{
+                    &--price{
+                        color: white;
+                        background-color: $color-expenses;
+                    }
+                    &--tag{
+                        color: white;
+                        background-color: $color-thr;
+                    }
+                    &--category{
+                        color: white;
+                        background-color: $color-main;
+                    }
+                    &--desc{
+                        color: white;
+                        background-color: rgba($color-main, .5);
+                    }
+                }
+            }
+
+            &__title{
+                margin-right: 10px;
+                min-width: 100px;
+            }
+        }
+
+    }
+}

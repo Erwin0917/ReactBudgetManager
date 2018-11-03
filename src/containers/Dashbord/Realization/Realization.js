@@ -60,9 +60,7 @@ class Realization extends Component {
             })
         }
 
-        plannedIncomes.map( item =>{
-            plannedIncomesSum += parseInt(item[1]);
-        })
+        plannedIncomes.map( item => plannedIncomesSum += parseInt(item[1]) )
 
         this.setState({
             ...this.state,

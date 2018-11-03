@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import firebase from '../../../firebase/config';
 
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import MomentLocaleUtils, {
+	formatDate,
+	parseDate,
+  } from 'react-day-picker/moment';
+
+import 'moment/locale/pl';
 import Input from '../../../components/Input/Input';
 import Button from '../../../components/Button/Button';
 import Select from '../../../components/Select/Select';
 
+import '../../../components/Input/DayPicker.css';
 import classes from './FastAdd.module.scss';
 
 const database = firebase.database();
@@ -15,9 +23,17 @@ class FastAdd extends Component {
         allExpensesCategories: [],
         allIncomesCategories:[],
         allExpensesTags: [],
-        hierarchy: null
+		hierarchy: null,
+		resetExpensesSelect: false,
+		resetIncomesSelect: false
 	};
 
+	constructor(props){
+		super(props);
+
+		this.incomesDate = React.createRef();
+		this.expensesDate = React.createRef();
+	}
 
 	componentDidMount() {
 		this.fetchData();
@@ -69,28 +85,40 @@ class FastAdd extends Component {
 	submitDataHandler = type => {
         const userId = firebase.auth().currentUser.uid;
 
-		const date = new Date();
-		const year = date.getFullYear();
-		const month = date.getUTCMonth() + 1;
-		const day = date.getUTCDate();
+		let date;
 
-        let data;
+		let data;
+		let toReset;
 
         if (type === "expenses") {
+
+			date = this.expensesDate.current.state.value.split(".");
             data = {
                 price: this.state.price ? this.state.price : "",
                 name: this.state.desc ? this.state.desc : "",
                 cat: this.state.currentCat ? this.state.currentCat : "",
                 tags: this.state.currentTags ? this.state.currentTags : ""
-            };
+			};
+
+			toReset = "resetExpensesSelect";
+
+			const wrapper = document.querySelector(`.${classes.expenses__wrapper}`);
+			[...wrapper.querySelectorAll("input")].map( input => input.value = "");
+
         }else{
+			date = this.incomesDate.current.state.value.split(".");
+
             data = {
                 price: this.state.price ? this.state.price : "",
                 cat: this.state.currentCat ? this.state.currentCat : ""
-            };
+			};
+
+			toReset = "resetIncomesSelect";
 		}
 
-
+		let year = date[2];
+		let month = date[1] < 10 ? date[1].split("")[1] : date[1];
+		let day = date[0] < 10 ? date[0].split("")[1] : date[0];
 
 
 		database
@@ -103,8 +131,11 @@ class FastAdd extends Component {
             price: null,
             currentTags: null,
             currentCat: null,
-            desc: null
-        })
+			desc: null,
+			[toReset]: true
+		})
+
+
     };
 
     getPrice = e => {
@@ -142,7 +173,18 @@ class FastAdd extends Component {
 						placeholder="PLN"
 						inputClass={classes.input__amount}
 					/>
-					<Select autocomplete placeholder="Żródło przychodu"  onChange={this.getCat} data={this.state.allIncomesCategories} />
+					<Select autocomplete placeholder="Żródło przychodu"  onChange={this.getCat} data={this.state.allIncomesCategories} reset={this.state.resetIncomesSelect}/>
+					<DayPickerInput
+						ref={this.incomesDate}
+						className={"dayPicker__wrapper"}
+						value={new Date()}
+						formatDate={formatDate}
+        				parseDate={parseDate}
+						dayPickerProps={{
+							locale: 'pl',
+							localeUtils: MomentLocaleUtils,
+						}}
+					/>
 					<Button
 						text="Dodaj przychód"
 						onClick={e => this.submitDataHandler('incomes')}
@@ -156,18 +198,28 @@ class FastAdd extends Component {
 						autocomplete
 						placeholder="Tagi"
 						data={this.state.allExpensesTags}
-
-						multiselect
                         onChange={this.getTag}
+						reset={this.state.resetExpensesSelect}
 					/>
 					<Select
 						autocomplete
 						placeholder="Kategoria"
 						data={this.state.allExpensesCategories}
-
                         onChange={this.getCat}
+						reset={this.state.resetExpensesSelect}
 					/>
 					<Input placeholder="Opis" onChange={this.getDesc} />
+					<DayPickerInput
+						ref={this.expensesDate}
+						className={"dayPicker__wrapper"}
+						value={new Date()}
+						formatDate={formatDate}
+        				parseDate={parseDate}
+						dayPickerProps={{
+							locale: 'pl',
+							localeUtils: MomentLocaleUtils,
+						}}
+					/>
 					<Button
 						text="Dodaj wydatek"
 						onClick={e => this.submitDataHandler('expenses')}

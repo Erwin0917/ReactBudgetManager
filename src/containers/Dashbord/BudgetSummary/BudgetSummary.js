@@ -1,5 +1,5 @@
 import React,{ Component  } from "react";
-import {ResponsiveContainer, ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from "recharts";
+import {ResponsiveContainer, ComposedChart, Area, XAxis, Tooltip} from "recharts";
 
 import classes from "../Dashbord.module.scss";
 
@@ -11,32 +11,6 @@ class BudgetSummary extends Component {
     buildDataForChar = (nextProps) =>{
         const date = new Date();
         const year =  date.getFullYear();
-       /*  const data = [{name: 'Styczeń', Wynik: 0, Portfel: 0},
-            {name: 'Luty', Wynik: 0,  Portfel: 0},
-            {name: 'Marzec', Wynik: 0,  Portfel: 0},
-            {name: 'Kwiecień', Wynik: 0,  Portfel: 0},
-            {name: 'Maj', Wynik: 0,  Portfel: 0},
-            {name: 'Czerwiec', Wynik: -200, Portfel: 0},
-            {name: 'Lipiec', Wynik: 421,  Portfel: 1321},
-            {name: 'Sierpień', Wynik: 100,  Portfel: 1410},
-            {name: 'Wrzesień', Wynik: 600,  Portfel: 2100},
-            {name: 'Październik', Wynik: -500,  Portfel: 1600},
-            {name: 'Listopad', Wynik: 50,  Portfel: 1650},
-            {name: 'Grudzień', Wynik: -300,  Portfel: 1350}];
-
-        const data = [{name: "Styczeń", Wynik: 0, Portfel: 0},
-            {name: "Luty", Wynik: 0, Portflel: 0},
-            {name: "Marzec", Wynik: 0, Portflel: 0},
-            {name: "Kwiecień", Wynik: 0, Portflel: 0},
-            {name: "Maj", Wynik: 0, Portflel: 0},
-            {name: "Czerwiec", Wynik: 0, Portflel: 0},
-            {name: "Lipiec", Wynik: 0, Portflel: 0},
-            {name: "Sierpień", Wynik: 0, Portflel: 0},
-            {name: "Wrzesień", Wynik: 0, Portflel: 0},
-            {name: "Październik", Wynik: 1500, Portflel: -200},
-            {name: "Listopad", Wynik: 1500, Portflel: 0},
-            {name: "Grudzień", Wynik: 0, Portflel: 0}]; */
-
         const data = [];
         const months = [
             "Styczeń",
@@ -73,8 +47,6 @@ class BudgetSummary extends Component {
                 "Portfel": currentWallet
             })
         }
-
-        console.log(data);
 
         return (
             <ResponsiveContainer  height={137}>

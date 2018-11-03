@@ -20,6 +20,16 @@ class Select extends Component {
         this.closeList()
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        console.log(nextProps)
+        if(nextProps.reset) this.resetState()
+    }
+
+    resetState = () =>{
+        console.log("reset");
+        this.setState({currentElements: []});
+    }
+
     closeList = () =>{
 
         document.addEventListener("click", e=>{
@@ -88,7 +98,6 @@ class Select extends Component {
         if (!this.props.multiselect ) {
 
             if (target.classList.contains(classes.checked)) {
-                console.log("zamknij wszystkie item zaznaczony");
                 this.closeAllLists();
             }
             siblings.map(item => item.classList.remove(classes.checked))
@@ -144,18 +153,20 @@ class Select extends Component {
         const createOutputElements = () =>{
             const wrapper = this.wrapper.current ? this.wrapper.current.querySelector(`.${classes.container}`) : null;
             if(this.state.currentElements.length > 0 ){
-                if (wrapper) wrapper.classList.add(classes.isNotEmpty);
-                return this.state.currentElements.map( (item, i) => (<span key={i}>{item}</span>))
+                if (wrapper) wrapper.classList.add("isNotEmpty");
+                if (wrapper) wrapper.querySelector(".select__placeholder").style.display = "none";
+                return this.state.currentElements.map( (item, i) => (<span className="selected__item" key={i}>{item}</span>))
 
             }else{
-                if (wrapper) wrapper.classList.remove(classes.isNotEmpty);
-                return this.props.placeholder;
+                if (wrapper) wrapper.classList.remove("isNotEmpty");
+                if (wrapper) wrapper.querySelector(".select__placeholder").style.display = "flex";
             }
         }
 
         return(
             <div className={classes.wrapper} ref={this.wrapper}>
                 <div className={[classes.container, "select__container"].join(" ")} onClick={ e => this.openListHandle(e)}>
+                    <div className="select__placeholder">{this.props.placeholder}</div>
                     <div className={classes.output}>
                         {createOutputElements()}
                     </div>

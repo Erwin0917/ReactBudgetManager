@@ -25,12 +25,10 @@ function Login(props) {
         */
         fire.auth().signInWithEmailAndPassword(userName, password)
         .then( ()=> {
-            props.getValide(true)
             props.history.push("/");
         })
         .catch(error => {
             console.log(error);
-            props.getValide(false)
         })
     }
 
