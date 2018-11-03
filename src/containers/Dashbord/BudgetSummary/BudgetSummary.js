@@ -67,7 +67,7 @@ class BudgetSummary extends Component {
         const year =  date.getFullYear();
         const currentMonth = date.getUTCMonth() + 1;
 
-        const value = this.props.data.wallet.history[year][currentMonth - 1].change;
+        const value = this.props.data.wallet.history[year][currentMonth - 1] ? this.props.data.wallet.history[year][currentMonth - 1].change : 0;
         const style = value > 0 ? "col-incomes" : "col-expenses";
 
         return (<div className={[classes.section__value, style].join(" ")}>

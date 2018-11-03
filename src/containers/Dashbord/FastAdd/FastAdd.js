@@ -92,6 +92,9 @@ class FastAdd extends Component {
 
         if (type === "expenses") {
 
+			let isValid = this.validForm("expenses");
+
+			if( !isValid ) return;
 			date = this.expensesDate.current.state.value.split(".");
             data = {
                 price: this.state.price ? this.state.price : "",
@@ -106,6 +109,10 @@ class FastAdd extends Component {
 			[...wrapper.querySelectorAll("input")].map( input => input.value = "");
 
         }else{
+			let isValid = this.validForm("incomes");
+
+			if( !isValid ) return;
+
 			date = this.incomesDate.current.state.value.split(".");
 
             data = {
@@ -114,6 +121,8 @@ class FastAdd extends Component {
 			};
 
 			toReset = "resetIncomesSelect";
+			const wrapper = document.querySelector(`.${classes.earnings__wrapper}`);
+			[...wrapper.querySelectorAll("input")].map( input => input.value = "");
 		}
 
 		let year = date[2];
@@ -135,8 +144,50 @@ class FastAdd extends Component {
 			[toReset]: true
 		})
 
+		setTimeout(() => {
+			this.setState({
+				...this.state,
+				[toReset]: false
+			})
+		}, 200);
 
-    };
+
+	};
+
+	validForm = name => {
+		let isValid = true;
+		let wrapper;
+		if(name === "expenses"){
+			wrapper = document.querySelector(`.${classes.expenses__wrapper}`);
+		}else{
+			wrapper = document.querySelector(`.${classes.earnings__wrapper}`);
+		}
+
+		[...wrapper.querySelectorAll(`.${classes.input__amount}`)].map( input => {
+
+			if(input.value.length === 0 ){
+				console.log("input error");
+				isValid = false;
+				input.classList.add("error");
+			}else{
+				input.classList.remove("error");
+			}
+		});
+
+		[...wrapper.querySelectorAll(".select__container")].map( selectWrapper => {
+			const placeholder = selectWrapper.querySelector(".select__placeholder")
+
+			if(placeholder.style.display === "flex"){
+				selectWrapper.classList.add("error");
+				console.log("select error");
+				isValid = false;
+			}else{
+				selectWrapper.classList.remove("error");
+			}
+		});
+
+		return isValid;
+	}
 
     getPrice = e => {
         this.setState({

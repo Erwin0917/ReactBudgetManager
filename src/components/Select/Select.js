@@ -21,7 +21,6 @@ class Select extends Component {
     }
 
     componentWillReceiveProps = (nextProps) => {
-        console.log(nextProps)
         if(nextProps.reset) this.resetState()
     }
 

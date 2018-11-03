@@ -7,6 +7,7 @@ function Nav(props){
 
     return (
         <nav className={classes.wrapper}>
+            <p style={{color:"#fff", width: "100%"}}>v 0.9.1 beta</p>
             <div style={{color:"#fff", padding: 20, border: "1px solid white"}} >
                 "Szukaj..."
             </div>

@@ -73,14 +73,15 @@ class Realization extends Component {
 
     renderSum = (arr, className) =>{
         let sum=0;
-
-        if(Array.isArray(arr)){ // dla planowanych
-                arr.map( val =>{
-                    sum = sum + parseInt(val[1]);
-                    return val;
-                })
-        }else{
-               sum = arr;
+        if(arr){
+            if(Array.isArray(arr)){ // dla planowanych
+                    arr.map( val =>{
+                        sum = sum + parseInt(val[1]);
+                        return val;
+                    })
+            }else{
+                    sum = arr;
+            }
         }
 
 
@@ -92,8 +93,10 @@ class Realization extends Component {
 
         if(filter === "current"){
             rest = this.state.incomes - this.state.expenses;
+            if(!rest) rest = 0;
         }else{
             rest = this.state.plannedIncomes - this.state.expenses;
+            if(!rest) rest = 0;
         }
 
         return <div className={[classes.section__value, "col-anchor"].join(" ")}>{rest} PLN</div>

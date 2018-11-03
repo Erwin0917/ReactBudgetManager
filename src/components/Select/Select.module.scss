@@ -51,6 +51,16 @@
     .output{
         display: none;
     }
+
+    &:global{
+        &.error{
+            border-bottom-color: $color-expenses;
+
+            .select__placeholder{
+                color: $color-expenses;
+            }
+        }
+    }
 }
 
 .output{
