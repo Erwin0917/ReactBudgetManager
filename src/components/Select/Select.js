@@ -25,8 +25,8 @@ class Select extends Component {
     }
 
     resetState = () =>{
-        console.log("reset");
         this.setState({currentElements: []});
+        [...this.wrapper.current.querySelectorAll(`.${classes.select__item}`)].map( item => item.classList.remove(classes.checked));
     }
 
     closeList = () =>{
