@@ -70,6 +70,10 @@ function Login(props) {
                     text="Zaloguj"
                     className="button--submit"
                     onClick={ e=> loginHandler(e)} />
+                <Button
+                    text="Zaloguj z konta google"
+                    className="button--submit"
+                    onClick={ e=> loginHandler(e)} />
             </form>
             <div className="login__footer">
                 <h2>Nie masz konta?</h2>

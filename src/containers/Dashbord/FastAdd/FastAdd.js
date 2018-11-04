@@ -24,6 +24,7 @@ class FastAdd extends Component {
         allIncomesCategories:[],
         allExpensesTags: [],
 		hierarchy: null,
+		currentExpensesCategory: "",
 		resetExpensesSelect: false,
 		resetIncomesSelect: false
 	};
@@ -52,8 +53,8 @@ class FastAdd extends Component {
 			'value',
 			snapshot => {
 				snap = snapshot.val();
-				if (snap) {
-					for (let item of snap.allCat) {
+				if (snap.allExpensesCategories) {
+					for (let item of snap.allExpensesCategories) {
 						allExpensesCategories.push(item.cat)
 
                         item.sub.map( tag => {
@@ -61,8 +62,7 @@ class FastAdd extends Component {
 							return tag;
                         })
 					}
-					/* FIXME: zmienic snapAllIncomes na snap AllIncomesCats */
-                    for (let item of snap.allIncomes) {
+                    for (let item of snap.allIncomesCategories) {
                         allIncomesCategories.push(item)
                     }
 				}
@@ -196,9 +196,22 @@ class FastAdd extends Component {
         })
     }
     getTag = e =>{
+		let currentCategory;
+		const allExpensesCategories = this.state.hierarchy.allExpensesCategories;
+
+		allExpensesCategories.map( elem => {
+			const cat = elem.cat;
+			elem.sub.map( sub => {
+				if( e[0] === sub){
+					currentCategory = cat;
+				}
+			})
+		})
+
         this.setState({
             ...this.state,
-            currentTags: e
+			currentTags: e,
+			currentExpensesCategory: currentCategory
         })
     }
     getCat = e => {
@@ -258,6 +271,7 @@ class FastAdd extends Component {
 						data={this.state.allExpensesCategories}
                         onChange={this.getCat}
 						reset={this.state.resetExpensesSelect}
+						value={this.state.currentExpensesCategory}
 					/>
 					<Input placeholder="Opis" onChange={this.getDesc} />
 					<DayPickerInput
@@ -285,233 +299,3 @@ class FastAdd extends Component {
 
 export default FastAdd;
 
-/*
-
-const data2 = {
-			allCat: [
-				{
-					cat: 'jedzenie',
-					sub: ['jedznie dom', 'jedzenie miasto', 'jedzenie praca', 'alkohol']
-				},
-				{
-					cat: 'mieszkanie',
-					sub: [
-						'czynsz',
-						'woda i kanalizacja',
-						'prąd',
-						'gaz',
-						'ogrzewanie',
-						'śmieci',
-						'naprawy',
-						'wyposażenie'
-					]
-				},
-				{
-					cat: 'transport',
-					sub: [
-						'paliwo',
-						'przeglądy i naprawy',
-						'ubezpieczenie',
-						'bilety komunikacja miejsca',
-						'bilety inne',
-						'taxi'
-					]
-				},
-				{
-					cat: 'telekomunikacja',
-					sub: ['telefon', 'tv', 'internet', 'netflix']
-				},
-				{
-					cat: 'opieka zdrowotna',
-					sub: ['lekarz', 'badania', 'lekarstwa']
-				},
-				{
-					cat: 'ubrania',
-					sub: ['ubrania zwykłe', 'ubrania sportowe', 'buty', 'dodatki']
-				},
-				{
-					cat: 'higiena',
-					sub: ['kosmetyki', 'środki czystości', 'fryzjer', 'kosmetyczka']
-				},
-				{
-					cat: 'dzieci',
-					sub: ['artykuły szkolne', 'zabawki/gry', 'opieka nad dziećmi']
-				},
-				{
-					cat: 'rozrywka',
-					sub: [
-						'kino/teatr',
-						'koncert',
-						'książka',
-						'hobby',
-						'hotel / turystyka'
-					]
-				},
-				{
-					cat: 'sport',
-					sub: ['siłownia', 'suplementy', 'zawody']
-				},
-				{
-					cat: 'inne wydatki',
-					sub: [
-						'dobroczynność',
-						'prezenty',
-						'sprzęt rtv',
-						'oprogramowanie',
-						'edukacja'
-					]
-				},
-				{
-					cat: 'spłata długów',
-					sub: ['kredyt hipoteczny', 'kredyt konsumpcyjny', 'pożyczka osobista']
-				},
-				{
-					cat: 'budowanie oszczędności',
-					sub: [
-						'fundusz awaryjny',
-						'fundusz wydatków nieregularnych',
-						'poduszka finansowa',
-						'konto emerytalne',
-						'nadpłata długów',
-						'fundusz wakacje',
-						'fundusz prezenty'
-					]
-				}
-			],
-			allIncomesCat: [
-				'wynagrodzenie',
-				'premia',
-				'odsetki bankowe',
-				'inne przychody'
-			]
-		};
-
-
-
-
-
-
-		=============================================================
-
-
-		database.collection(`users`).doc(userId).set({
-			info:{
-				email: firebase.auth().currentUser.email
-			},
-			allCategories:{
-				expense: [
-					{
-						cat: "jedzenie",
-					 	sub: ["jedzenie dom", "jedzenie miasto", "jedzenie praca", "alkohol"]
-					},
-					{
-						cat: "mieszkanie",
-						sub: ["czynsz", "woda i kanalizacja", "prąd", "gaz", "ogrzewanie", "śmieci", "naprawy", "wyposażenie"]
-					},
-					{
-						cat: "transport",
-						sub: ["paliwo", "przeglądy i naprawy", "ubezpieczenie", "bilety komunikacja miejsca", "bilety inne", "taxi"]
-					},
-					{
-						cat: "telekomunikacja",
-						sub: ["telefon", "tv", "internet", "netflix"]
-					},
-					{
-						cat: "opieka zdrowotna",
-						sub: ["lekarz", "badania", "lekarstwa"]
-					},
-					{
-						cat: "ubrania",
-						sub: ["ubrania zwykłe", "ubrania sportowe", "buty", "dodatki"]
-					},
-					{
-						cat: "higiena",
-						sub: ["kosmetyki", "środki czystości", "fryzjer", "kosmetyczka"]
-					},
-					{
-						cat: "dzieci",
-						sub: ["artykuły szkolne", "zabawki/gry", "opieka nad dziećmi"]
-					},
-					{
-						cat: "rozrywka",
-						sub: ["kino/teatr", "koncert", "książka", "hobby", "hotel / turystyka"]
-					},
-					{
-						cat: "sport",
-						sub: ["siłownia", "suplementy", "zawody"]
-					},
-					{
-						cat: "inne wydatki",
-						sub: ["dobroczynność", "prezenty", "sprzęt rtv", "oprogramowanie", "edukacja"]
-					},
-					{
-						cat: "spłata długów",
-						sub: ["kredyt hipoteczny", "kredyt konsumpcyjny", "pożyczka osobista"]
-					},
-					{
-						cat: "budowanie oszczędności",
-						sub: ["fundusz awaryjny", "fundusz wydatków nieregularnych", "poduszka finansowa", "konto emerytalne", "nadpłata długów", "fundusz wakacje", "fundusz prezenty"]
-					}
-				],
-				incomes:[
-					"wynagrodzenie",
-					"premie",
-					"odsetki bankowe",
-					"inne przychody"
-				]
-			},
-			planned:{
-				expenses: [
-					{
-						cat: "jedzenie",
-						tag: "jedzenie dom",
-						price: 100
-					}
-				],
-				incomes: [
-					{
-						cat: "wynagrodzenie",
-						price: 2500
-					}
-				]
-			},
-			expenses: {
-				[year]: {
-					[month]: {
-						1:[
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150},
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150},
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150},
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150}
-						],
-						2: [
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150}
-						],
-						3:[
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150}
-						]
-					},
-					11:{
-						1:[
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150}
-						],
-						2: [
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150}
-						],
-						3:[
-							{cat:"dupa", tag:"dupa2", name:"dupa", price: 150}
-						]
-					}
-				}
-			},
-			incomes: {}
-		})
-		.then(function(docRef) {
-			console.log("Document written with ID: ", docRef.id);
-		})
-		.catch(function(error) {
-			console.error("Error adding document: ", error);
-		});
-
-
-*/

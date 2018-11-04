@@ -18,10 +18,18 @@ class Select extends Component {
         super(props);
         this.wrapper = React.createRef();
         this.closeList()
+
     }
 
     componentWillReceiveProps = (nextProps) => {
         if(nextProps.reset) this.resetState()
+        if(nextProps.value) this.setValue(nextProps.value);
+    }
+
+    setValue = value =>{
+        this.setState({
+            currentElements : [value]
+        })
     }
 
     resetState = () =>{

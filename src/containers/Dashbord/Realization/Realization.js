@@ -24,43 +24,51 @@ class Realization extends Component {
 
     componentWillReceiveProps(nextProps){
 
-        this.setSum(nextProps.data.incomes, nextProps.data.expenses, nextProps.data.planned.incomes);
+        if(nextProps.data){
+            this.setSum(nextProps.data.incomes, nextProps.data.expenses, nextProps.data.planned.incomes);
+        }
 
     }
 
     setSum = (incomes, expenses, plannedIncomes) => {
-        if( !incomes || !expenses) return;
+        if( !incomes && !expenses) return;
         let incomesSum = 0;
         let expensesSum = 0;
         let plannedIncomesSum = 0;
 
-        let currentIncomes = this.state.period === "month" ? incomes[this.year][this.month] : 0;
-        if(currentIncomes){
-            Object.keys(currentIncomes).map( day =>{
-                Object.keys(currentIncomes[day]).map( inDay => {
-                    incomesSum = incomesSum + parseInt(currentIncomes[day][inDay].price);
+        if(incomes){
+            let currentIncomes = this.state.period === "month" ? incomes[this.year][this.month] : 0;
+            if(currentIncomes){
+                Object.keys(currentIncomes).map( day =>{
+                    Object.keys(currentIncomes[day]).map( inDay => {
+                        incomesSum = incomesSum + parseInt(currentIncomes[day][inDay].price);
 
-                    return inDay;
+                        return inDay;
+                    })
+                    return day;
                 })
-                return day;
-            })
 
+            }
         }
 
-        let currentExpense = this.state.period === "month" ? expenses[this.year][this.month] : 0;
-        if(currentExpense){
-            Object.keys(currentExpense).map( day =>{
+        if(expenses){
+            let currentExpense = this.state.period === "month" ? expenses[this.year][this.month] : 0;
+            if(currentExpense){
+                Object.keys(currentExpense).map( day =>{
 
-                Object.keys(currentExpense[day]).map( inDay => {
-                    expensesSum = expensesSum + parseInt(currentExpense[day][inDay].price);
+                    Object.keys(currentExpense[day]).map( inDay => {
+                        expensesSum = expensesSum + parseInt(currentExpense[day][inDay].price);
 
-                    return inDay;
+                        return inDay;
+                    })
+                    return day;
                 })
-                return day;
-            })
+            }
         }
 
-        plannedIncomes.map( item => plannedIncomesSum += parseInt(item[1]) )
+        if( plannedIncomes ){
+            plannedIncomes.map( item => plannedIncomesSum += parseInt(item[1]) )
+        }
 
         this.setState({
             ...this.state,
@@ -105,89 +113,41 @@ class Realization extends Component {
 
     renderCategoryCharts = (data) =>{
 
+        if( !data.expenses ) return;
+
         const thisMonthExpenses = data.expenses[this.year][this.month];
         let maxValue = 0;
-        let allExpensesCategories = data.allCat;
+        let allExpensesCategories = data.allExpensesCategories;
 
         /* Obliczanie maksymalnej wartości dla wykresu */
 
         /* FIXME: W obliczaniu wyciągnąć wartości do zmiennych, nie robić tego samego dla renderowania */
-        allExpensesCategories.map( (categoryWrapper, index) => {
-            const categoryTagsList = categoryWrapper.sub;
+        if(allExpensesCategories){
 
-            let plannedValue = 0;
-            let currentValue = 0;
-            let lastMonthValue; /* TODO: niewiadomo czy będzie */
-
-            categoryTagsList.map( (tag, tagIndex) => {
-                    const currentTagName = tag;
-                    let currentTagPlannedValue = 0;
-                    let currentTagCurrentValue = 0;
-
-
-                    data.planned.expenses.map( (plannedCategory) => {
-                            const plannedCategoryName = plannedCategory[0];
-                            const plannedCategoryValue = plannedCategory[1];
-
-                            if(currentTagName === plannedCategoryName){
-                                    currentTagPlannedValue += parseInt(plannedCategoryValue);
-                            }
-
-                            return plannedCategory;
-                    });
-                    if(thisMonthExpenses){
-                        Object.keys(thisMonthExpenses).map( (day) => {
-                                Object.keys(thisMonthExpenses[day]).map( inDay =>{
-                                        const tagExpenseName = thisMonthExpenses[day][inDay].tags;
-                                        const tagExpenseValue = thisMonthExpenses[day][inDay].price;
-
-                                        if(currentTagName === tagExpenseName[0]){
-                                            currentTagCurrentValue += parseInt(tagExpenseValue);
-                                        }
-
-                                        return inDay;
-                                });
-                            return day;
-                        })
-                    }
-
-                    plannedValue += currentTagPlannedValue;
-                    currentValue += currentTagCurrentValue;
-
-                    maxValue = parseInt(plannedValue)  > maxValue ? parseInt(plannedValue) : maxValue;
-                    maxValue = parseInt(currentValue)  > maxValue ? parseInt(currentValue) : maxValue;
-
-                    return tag;
-            })
-
-            return categoryWrapper;
-
-    })
-
-
-        /* Renderowanie elementów */
-        return allExpensesCategories.map( (categoryWrapper, index) => {
-                const categoryName = categoryWrapper.cat;
+            allExpensesCategories.map( (categoryWrapper, index) => {
                 const categoryTagsList = categoryWrapper.sub;
 
                 let plannedValue = 0;
                 let currentValue = 0;
-                let lastMonthValue;/* TODO: niewiadomo czy będzie */
+                let lastMonthValue; /* TODO: niewiadomo czy będzie */
 
-                const tagsWrapper = categoryTagsList.map( (tag, tagIndex) => {
+                categoryTagsList.map( (tag, tagIndex) => {
                         const currentTagName = tag;
                         let currentTagPlannedValue = 0;
                         let currentTagCurrentValue = 0;
 
-                        data.planned.expenses.map( (plannedCategory) => {
-                                const plannedCategoryName = plannedCategory[0];
-                                const plannedCategoryValue = plannedCategory[1];
+                        if(data.planned){
+                            data.planned.expenses.map( (plannedCategory) => {
+                                    const plannedCategoryName = plannedCategory[0];
+                                    const plannedCategoryValue = plannedCategory[1];
 
-                                if(currentTagName === plannedCategoryName){
-                                        currentTagPlannedValue += parseInt(plannedCategoryValue);
-                                }
-                            return plannedCategory;
-                        });
+                                    if(currentTagName === plannedCategoryName){
+                                            currentTagPlannedValue += parseInt(plannedCategoryValue);
+                                    }
+
+                                    return plannedCategory;
+                            });
+                        }
                         if(thisMonthExpenses){
                             Object.keys(thisMonthExpenses).map( (day) => {
                                     Object.keys(thisMonthExpenses[day]).map( inDay =>{
@@ -207,45 +167,106 @@ class Realization extends Component {
                         plannedValue += currentTagPlannedValue;
                         currentValue += currentTagCurrentValue;
 
-                        if( currentTagPlannedValue + currentTagCurrentValue > 0){
-                            return (
-                                <div className={classes.tag} key={tagIndex} >
+                        maxValue = parseInt(plannedValue)  > maxValue ? parseInt(plannedValue) : maxValue;
+                        maxValue = parseInt(currentValue)  > maxValue ? parseInt(currentValue) : maxValue;
 
-                                    <MyChart barData={[{"barName":[null, null],"barVal": [currentTagPlannedValue, currentTagCurrentValue], "style":["percent", "percent"], "color": ["rgb(221, 201, 239)", "#4c0cc4"]}]}     maxValue={maxValue} tooltip={["planowane", "rzeczywiste"] } stacked slim/>
-
-                                    <div className={classes.tag__title}>{currentTagName}</div>
-                                    <div className={classes.char__info}>Wydane: <span className="col-expenses">{currentTagCurrentValue}</span></div>
-                                </div>
-                            )
-                        }else{
-                            return null;
-                        }
-
-
+                        return tag;
                 })
 
-                if(plannedValue + currentValue > 0){
-                    return (
-                        <div className={classes.category__wrapper} key={index}>
+                return categoryWrapper;
 
-                            <MyChart barData={[{"barName":[null, null],"barVal": [plannedValue, currentValue], "style":["percent", "percent"], "color": ["rgb(236, 229, 243)", "#4c0cc4"]}]} maxValue={maxValue} tooltip={["planowane", "rzeczywiste"]} stacked slim/>
+            })
 
-                            <div className={classes.category__title} onClick={ e => this.openTagsList(e)}>{categoryName}<span className="ico ico-arrow"></span></div>
-                            <div className={classes.char__info}>Wydane: <span className="col-expenses">{currentValue}</span></div>
 
-                            <div className={classes.tags__wrapper}>
-                                {tagsWrapper}
+
+            return allExpensesCategories.map( (categoryWrapper, index) => {
+                const categoryName = categoryWrapper.cat;
+                /* Renderowanie elementów */
+                    const categoryTagsList = categoryWrapper.sub;
+
+                    let plannedValue = 0;
+                    let currentValue = 0;
+                    let lastMonthValue;/* TODO: niewiadomo czy będzie */
+
+                    const tagsWrapper = categoryTagsList.map( (tag, tagIndex) => {
+                            const currentTagName = tag;
+                            let currentTagPlannedValue = 0;
+                            let currentTagCurrentValue = 0;
+
+                            if(data.planned){
+                                data.planned.expenses.map( (plannedCategory) => {
+                                        const plannedCategoryName = plannedCategory[0];
+                                        const plannedCategoryValue = plannedCategory[1];
+
+                                        if(currentTagName === plannedCategoryName){
+                                                currentTagPlannedValue += parseInt(plannedCategoryValue);
+                                        }
+                                    return plannedCategory;
+                                });
+                            }
+                            if(thisMonthExpenses){
+                                Object.keys(thisMonthExpenses).map( (day) => {
+                                        Object.keys(thisMonthExpenses[day]).map( inDay =>{
+                                                const tagExpenseName = thisMonthExpenses[day][inDay].tags;
+                                                const tagExpenseValue = thisMonthExpenses[day][inDay].price;
+
+                                                if(currentTagName === tagExpenseName[0]){
+                                                    currentTagCurrentValue += parseInt(tagExpenseValue);
+                                                }
+
+                                                return inDay;
+                                        });
+                                    return day;
+                                })
+                            }
+
+                            plannedValue += currentTagPlannedValue;
+                            currentValue += currentTagCurrentValue;
+
+                            if( currentTagPlannedValue + currentTagCurrentValue > 0){
+                                return (
+                                    <div className={classes.tag} key={tagIndex} >
+
+                                        <MyChart barData={[{"barName":[null, null],"barVal": [currentTagPlannedValue, currentTagCurrentValue], "style":["percent", "percent"], "color": ["rgb(221, 201, 239)", "#4c0cc4"]}]}     maxValue={maxValue} tooltip={["planowane", "rzeczywiste"] } stacked slim/>
+
+                                        <div className={classes.tag__title}>{currentTagName}</div>
+                                        <div className={classes.char__info}>Wydane: <span className="col-expenses">{currentTagCurrentValue}</span></div>
+                                    </div>
+                                )
+                            }else{
+                                return null;
+                            }
+
+
+                    })
+
+                    if(plannedValue + currentValue > 0){
+                        return (
+                            <div className={classes.category__wrapper} key={index}>
+
+                                <MyChart barData={[{"barName":[null, null],"barVal": [plannedValue, currentValue], "style":["percent", "percent"], "color": ["rgb(236, 229, 243)", "#4c0cc4"]}]} maxValue={maxValue} tooltip={["planowane", "rzeczywiste"]} stacked slim/>
+
+                                <div className={classes.category__title} onClick={ e => this.openTagsList(e)}>{categoryName}<span className="ico ico-arrow"></span></div>
+                                <div className={classes.char__info}>Wydane: <span className="col-expenses">{currentValue}</span></div>
+
+                                <div className={classes.tags__wrapper}>
+                                    {tagsWrapper}
+                                </div>
                             </div>
-                        </div>
-                    )
-                }else{
-                    return null;
-                }
+                        )
+                    }else{
+                        return null;
+                    }
 
 
 
 
-        })
+            })
+        }
+
+
+
+
 
     }
 

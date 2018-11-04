@@ -25,7 +25,7 @@ class IncomesPlan extends Component{
 			'value',
 			snapshot => {
 				const snap = snapshot.val();
-                this.combineData( snap.allIncomes, snap.planned.incomes)
+                this.combineData( snap.allIncomesCategories, snap.planned ? snap.planned.incomes : [])
 			},
 			error =>{
 				console.log('Error: ' + error.code);

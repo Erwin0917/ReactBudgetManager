@@ -27,7 +27,7 @@ class BudgetSummary extends Component {
             "Grudzień"
         ]
 
-        const wallet = nextProps.wallet.history[year];
+        const wallet = nextProps.wallet.history && nextProps.wallet.history[year] ? nextProps.wallet.history[year] : 0;
 
         for(let i= 0; i < 12; i++){
             let value;
@@ -67,7 +67,7 @@ class BudgetSummary extends Component {
         const year =  date.getFullYear();
         const currentMonth = date.getUTCMonth() + 1;
 
-        const value = this.props.data.wallet.history[year][currentMonth - 1] ? this.props.data.wallet.history[year][currentMonth - 1].change : 0;
+        const value = this.props.data.wallet.history && this.props.data.wallet.history[year][currentMonth - 1] ? this.props.data.wallet.history[year][currentMonth - 1].change : 0;
         const style = value > 0 ? "col-incomes" : "col-expenses";
 
         return (<div className={[classes.section__value, style].join(" ")}>
@@ -84,7 +84,7 @@ class BudgetSummary extends Component {
                 <div className={classes.section__item}>
                     <h3>Portfel:</h3>
                     <div className={[classes.section__value, "col-anchor"].join(" ")}>
-                        {this.props.data ? this.props.data.wallet.current.value : "..."} PLN
+                        {this.props.data  ? this.props.data.wallet.current.value : "..."} PLN
                     </div>
                 </div>
                 <div className={classes.section__item}>

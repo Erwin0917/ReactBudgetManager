@@ -32,10 +32,10 @@ class Dashbord extends Component {
                 this.setState({
                     ...this.state,
                     data: {
-                        expenses: snap.expenses,
-                        incomes: snap.incomes,
-                        planned: snap.planned,
-                        allCat: snap.allCat,
+                        expenses: snap.expenses ? snap.expenses : 0 ,
+                        incomes: snap.incomes ? snap.incomes : 0,
+                        planned: snap.planned ? snap.planned : 0,
+                        allExpensesCategories: snap.allExpensesCategories,
                         wallet: snap.wallet
                     }
                 })

@@ -12,7 +12,7 @@ class HistoryTable extends Component {
     }
 
     componentWillReceiveProps = (nextProps) =>{
-        if(nextProps.data){
+        if(nextProps.data && nextProps.data.expenses){
             const date = new Date();
             const year =  date.getFullYear();
             const month =  date.getUTCMonth() + 1;

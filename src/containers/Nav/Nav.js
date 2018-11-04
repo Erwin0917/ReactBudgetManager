@@ -1,16 +1,15 @@
 import React from "react";
 import {NavLink, Link} from "react-router-dom";
 
+import LogoutButton from "../../components/Button/LogoutButton/LogoutButton";
+
 import classes from "./Nav.module.scss";
 
 function Nav(props){
 
     return (
         <nav className={classes.wrapper}>
-            <p style={{color:"#fff", width: "100%"}}>v 0.9.1 beta</p>
-            <div style={{color:"#fff", padding: 20, border: "1px solid white"}} >
-                "Szukaj..."
-            </div>
+            <p style={{color:"#fff", width: "100%"}}>v 0.9.2 beta</p>
             <div className={classes.__item}>
                 <NavLink
                     exact
@@ -69,7 +68,7 @@ function Nav(props){
                 O aplikacji</NavLink>
             </div>
             <div className={classes.__item}>
-                  <Link to="/login" >Wyloguj</Link>
+                <LogoutButton />
             </div>
         </nav>
     )
